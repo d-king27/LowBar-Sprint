@@ -1,0 +1,26 @@
+{
+  "name": "lowbar-sprint",
+  "version": "1.0.0",
+  "description": "Underscore reimplementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./spec/spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d-king27/LowBar-Sprint.git"
+  },
+  "keywords": [
+    "lowbar"
+  ],
+  "author": "Daniel King",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d-king27/LowBar-Sprint/issues"
+  },
+  "homepage": "https://github.com/d-king27/LowBar-Sprint#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  }
+}
