@@ -170,10 +170,26 @@ _.extend = function(){
 
     let final = Object.assign.apply(null,objs)
     if (Object.values(final).length === 0){return arguments[0]}
-    return final
-    
-
+    arguments[0] = final
+    return arguments[0]
 }
+
+_.defaults = function(){
+    if (Object.values(arguments).length === 0){return undefined}
+    if (Object.values(arguments).length === 1){return arguments[0]}
+    let extentions = _.filter(arguments,(item,i)=>{
+        if(i === 0 ){return false}
+        if(typeof item === 'object' && item !== null){return true}
+        else return false
+    })
+    if(extentions.length === 0){return arguments[0]}
+    let objs = [arguments[0]].concat(extentions).reverse()
+    let final = Object.assign.apply(null,objs)
+    arguments[0] = final
+    return arguments[0]
+
+
+} 
 
 
 module.exports = _

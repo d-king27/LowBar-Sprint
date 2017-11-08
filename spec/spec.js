@@ -197,7 +197,7 @@ describe('_ lowbar', () => {
             expect(_.reject({ a: 5, b: 10, c: 15, d: 90 }, greaterThan10)).to.eql([5, 10]);
         });
     });
-    
+
     describe('#uniq', function () {
         it('it is a function', () => {
             expect(_.uniq).to.be.a('function');
@@ -213,164 +213,183 @@ describe('_ lowbar', () => {
     });
     describe('#map', () => {
         it('it is a function', () => {
-          expect(_.map).to.be.a('function');
+            expect(_.map).to.be.a('function');
         });
         it('returns an array', () => {
-          expect(_.map()).to.eql([]);
-    
-        });
-        it('returns a new array with every element passed through the function',() => {
-          let times10 = (a) => {
-            return a * 10;
-          };
-         let capitalize =(str) => {
-            return str.toUpperCase();
-          };
-          let count = 0;
-          let incrCount = () => {
-            count++;
-          };
-          _.map([1, 2, 3, 4], incrCount);
-          expect(count).to.equal(4);
-          expect(_.map([1, 2, 3, 4], times10)).to.eql([10, 20, 30, 40]);
-          expect(_.map(['a', 'b'], capitalize)).to.eql(['A', 'B']);
-          expect(_.map({ one: 1, two: 2, three: 3 }, times10)).to.eql([10, 20, 30]);
-        });
-      });
+            expect(_.map()).to.eql([]);
 
-      describe('#contains', () => {
-        it('it is a function',  () => {
-          expect(_.contains).to.be.a('function');
+        });
+        it('returns a new array with every element passed through the function', () => {
+            let times10 = (a) => {
+                return a * 10;
+            };
+            let capitalize = (str) => {
+                return str.toUpperCase();
+            };
+            let count = 0;
+            let incrCount = () => {
+                count++;
+            };
+            _.map([1, 2, 3, 4], incrCount);
+            expect(count).to.equal(4);
+            expect(_.map([1, 2, 3, 4], times10)).to.eql([10, 20, 30, 40]);
+            expect(_.map(['a', 'b'], capitalize)).to.eql(['A', 'B']);
+            expect(_.map({ one: 1, two: 2, three: 3 }, times10)).to.eql([10, 20, 30]);
+        });
+    });
+
+    describe('#contains', () => {
+        it('it is a function', () => {
+            expect(_.contains).to.be.a('function');
         });
         it('it returns false if one or less arguments are passed', () => {
-          expect(_.contains()).to.equal(false);
-          expect(_.contains('anything')).to.equal(false);
-          expect(_.contains([1, 2, 3])).to.equal(false);
+            expect(_.contains()).to.equal(false);
+            expect(_.contains('anything')).to.equal(false);
+            expect(_.contains([1, 2, 3])).to.equal(false);
         });
         it('returns true if value present in array', () => {
-          expect(_.contains([1, 2, 3], 1)).to.equal(true);
-          expect(_.contains([1, 2, 3], 5)).to.equal(false);
-          expect(_.contains('hello', 'h')).to.equal(true);
-          expect(_.contains({a:1,b:2,c:3}, 5)).to.equal(false);
+            expect(_.contains([1, 2, 3], 1)).to.equal(true);
+            expect(_.contains([1, 2, 3], 5)).to.equal(false);
+            expect(_.contains('hello', 'h')).to.equal(true);
+            expect(_.contains({ a: 1, b: 2, c: 3 }, 5)).to.equal(false);
         });
-      });
+    });
 
-      describe('#pluck',  () => {
+    describe('#pluck', () => {
         it('it is a function', () => {
-          expect(_.pluck).to.be.a('function');
+            expect(_.pluck).to.be.a('function');
         });
         it('it returns the first arguement if the first arguement is not an array', () => {
-          expect(_.pluck()).to.eql([]);
-          expect(_.pluck('anything')).to.eql([]);
-          expect(_.pluck(2)).to.eql([]);
+            expect(_.pluck()).to.eql([]);
+            expect(_.pluck('anything')).to.eql([]);
+            expect(_.pluck(2)).to.eql([]);
         });
-        it('returns the values coresponding to a given key value in an array of objects',  () => {
-          expect(_.pluck([{ name: 'hello' }], 'name')).to.eql(['hello']);
-          expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'name')).to.eql(['moe', 'larry', 'curly']);
-          expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'age')).to.eql([40, 50, 60]);
-          expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'oiuytrf')).to.eql([undefined, undefined, undefined]);
-          expect(_.pluck({a:{ name: 'moe', age: 40 },b: { name: 'larry', age: 50 }, c:{ name: 'curly', age: 60 }}, 'name')).to.eql(['moe', 'larry', 'curly']);
+        it('returns the values coresponding to a given key value in an array of objects', () => {
+            expect(_.pluck([{ name: 'hello' }], 'name')).to.eql(['hello']);
+            expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'name')).to.eql(['moe', 'larry', 'curly']);
+            expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'age')).to.eql([40, 50, 60]);
+            expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'oiuytrf')).to.eql([undefined, undefined, undefined]);
+            expect(_.pluck({ a: { name: 'moe', age: 40 }, b: { name: 'larry', age: 50 }, c: { name: 'curly', age: 60 } }, 'name')).to.eql(['moe', 'larry', 'curly']);
         });
-      });
+    });
 
 
-      describe('#reduce', () => {
-        var rrTestFuncSum = (a, b) =>{ 
-          return a + b;
+    describe('#reduce', () => {
+        var rrTestFuncSum = (a, b) => {
+            return a + b;
         };
         var rrTestFuncExp = (a, b) => {
-          return a * b;
+            return a * b;
         };
-        var rrTestFuncStringMess =  (a, b) => {
-          return b += a.split('').reverse().join('');
+        var rrTestFuncStringMess = (a, b) => {
+            return b += a.split('').reverse().join('');
         };
         var testArray = [1, 3, 5];
         var testWords1 = ['thomas', 'richard', 'henry'];
         var testWords2 = ['richard', 'henry'];
-    
+
         it('should be a function', function () {
-          expect(_.reduce).to.be.a('function');
+            expect(_.reduce).to.be.a('function');
         });
         it('should output according to the function input', () => {
-          expect(_.reduce(testArray, rrTestFuncSum, 0)).to.be.a('number');
+            expect(_.reduce(testArray, rrTestFuncSum, 0)).to.be.a('number');
         });
-        it('should sum numbers',  () => {
-          expect(_.reduce(testArray, rrTestFuncSum, 0)).to.eql(9);
+        it('should sum numbers', () => {
+            expect(_.reduce(testArray, rrTestFuncSum, 0)).to.eql(9);
         });
         it('should sum numbers even if given no base arguement', () => {
-          expect(_.reduce(testArray, rrTestFuncSum)).to.equal(9);
+            expect(_.reduce(testArray, rrTestFuncSum)).to.equal(9);
         });
         it('should multiply numbers even if given no base arguement', () => {
-          expect(_.reduce(testArray, rrTestFuncExp)).to.equal(15);
+            expect(_.reduce(testArray, rrTestFuncExp)).to.equal(15);
         });
-        it('should implement mildly complex functions on strings',  () =>{
-          expect(_.reduce(testWords2, rrTestFuncStringMess, '')).to.equal('henrydrahcir');
-          expect(_.reduce(testWords1, rrTestFuncStringMess)).to.equal('henrythomasdrahcir');
+        it('should implement mildly complex functions on strings', () => {
+            expect(_.reduce(testWords2, rrTestFuncStringMess, '')).to.equal('henrydrahcir');
+            expect(_.reduce(testWords1, rrTestFuncStringMess)).to.equal('henrythomasdrahcir');
         });
-      });
+    });
 
 
-  describe('#every',  () => {
-    it('it is a function', ()  => {
-      expect(_.every).to.be.a('function');
+    describe('#every', () => {
+        it('it is a function', () => {
+            expect(_.every).to.be.a('function');
+        });
+        it('it returns true if passed with no second arguement', () => {
+            expect(_.every()).to.equal(true);
+            expect(_.every([1, 2, 3, 4])).to.equal(true);
+            expect(_.every(234)).to.equal(true);
+            expect(_.every('234')).to.equal(true);
+        });
+        it('it returns true/false if all items in the first arguement pass/fail the predicate fn', () => {
+            let lower10 = (a) => {
+                return a < 10;
+            }
+            expect(_.every([1, 2, 3], lower10)).to.equal(true);
+            expect(_.every([1, 2, 3, 40], lower10)).to.equal(false);
+            expect(_.every({ a: 1, b: 2 }, lower10)).to.equal(true);
+        });
     });
-    it('it returns true if passed with no second arguement',() => {
-      expect(_.every()).to.equal(true);
-      expect(_.every([1, 2, 3, 4])).to.equal(true);
-      expect(_.every(234)).to.equal(true);
-      expect(_.every('234')).to.equal(true);
-    });
-    it('it returns true/false if all items in the first arguement pass/fail the predicate fn', () => {
-      let lower10 = (a) => {
-        return a < 10;
-      }
-      expect(_.every([1, 2, 3], lower10)).to.equal(true);
-      expect(_.every([1, 2, 3, 40], lower10)).to.equal(false);
-      expect(_.every({ a: 1, b: 2 }, lower10)).to.equal(true);
-    });
-  });
 
 
 
-  describe('#some', () => {
-    it('it is a function', () => {
-      expect(_.some).to.be.a('function');
+    describe('#some', () => {
+        it('it is a function', () => {
+            expect(_.some).to.be.a('function');
+        });
+        it('it returns true if passed with no second arguement', () => {
+            expect(_.some()).to.equal(true);
+            expect(_.some([1, 2, 3, 4])).to.equal(true);
+            expect(_.some(234)).to.equal(true);
+            expect(_.some('234')).to.equal(true);
+        });
+        it('it returns true/false if one item in the first arguement pass/fail the predicate fn', () => {
+            let lower10 = (a) => {
+                return a < 10;
+            }
+            expect(_.some([20, 30, 40], lower10)).to.equal(false);
+            expect(_.some([1, 2, 3, 40], lower10)).to.equal(true);
+            expect(_.some({ a: 1, b: 20 }, lower10)).to.equal(true);
+        });
     });
-    it('it returns true if passed with no second arguement', () => {
-      expect(_.some()).to.equal(true);
-      expect(_.some([1, 2, 3, 4])).to.equal(true);
-      expect(_.some(234)).to.equal(true);
-      expect(_.some('234')).to.equal(true);
-    });
-    it('it returns true/false if one item in the first arguement pass/fail the predicate fn', () => {
-      let lower10 = (a) => {
-        return a < 10;
-      }
-      expect(_.some([20, 30, 40], lower10)).to.equal(false);
-      expect(_.some([1, 2, 3, 40], lower10)).to.equal(true);
-      expect(_.some({ a: 1, b: 20 }, lower10)).to.equal(true);
-    });
-  });
-  describe('#extend', function () {
-    it('it is a function', function () {
-      expect(_.extend).to.be.a('function');
-    });
-    it('if no arguments passed returns undefined', function () {
-      expect(_.extend()).to.equal(undefined);
-    });
-    it('if not passed with any objects returns first argument', function () {
-      expect(_.extend(3, 'tre', true)).to.equal(3);
-      expect(_.extend(1, null, 1)).to.equal(1);
-    });
-    it('ignores any non objects', function () {
-      expect(_.extend({}, 2, 3, { a: 1 }, 'string')).to.eql({ a: 1 });
-      expect(_.extend({},2, 3, { a: 1 })).to.eql({ a: 1 });
+    describe('#extend', function () {
+        it('it is a function', function () {
+            expect(_.extend).to.be.a('function');
+        });
+        it('if no arguments passed returns undefined', function () {
+            expect(_.extend()).to.equal(undefined);
+        });
+        it('if not passed with any objects returns first argument', function () {
+            expect(_.extend(3, 'tre', true)).to.equal(3);
+            expect(_.extend(1, null, 1)).to.equal(1);
+        });
+        it('ignores any non objects', function () {
+            expect(_.extend({}, 2, 3, { a: 1 }, 'string')).to.eql({ a: 1 });
+            expect(_.extend({}, 2, 3, { a: 1 })).to.eql({ a: 1 });
 
+        });
+        it('copies all the properties of given objects into one object', function () {
+            expect(_.extend({ name: 'moe' }, { age: 50 })).to.eql({ name: 'moe', age: 50 });
+            expect(_.extend({ name: 'moe' }, [1])).to.eql({ name: 'moe', '0': 1 });
+            expect(_.extend({ name: 'moe' }, { age: 50 }, { address: '12a' })).to.eql({ name: 'moe', age: 50, address: '12a' });
+        });
     });
-    it('copies all the properties of given objects into one object', function () {
-      expect(_.extend({ name: 'moe' }, { age: 50 })).to.eql({ name: 'moe', age: 50 });
-      expect(_.extend({ name: 'moe' }, [1])).to.eql({ name: 'moe', '0': 1 });
-      expect(_.extend({ name: 'moe' }, { age: 50 }, { address: '12a' })).to.eql({ name: 'moe', age: 50, address: '12a' });
+
+    describe('#defaults',  () => {
+        it('it is a function',  () => {
+            expect(_.defaults).to.be.a('function');
+        });
+        it('if no arguments passed returns undefined', () => {
+            expect(_.defaults()).to.equal(undefined);
+        });
+        it('if not passed with any objects returns first argument', () => {
+            expect(_.defaults(1, 2)).to.equal(1);
+            expect(_.defaults('hello', 'world')).to.equal('hello');
+            expect(_.defaults(1, null)).to.equal(1);
+        });
+        it('it should add or replace a given key value pair in an object',() => {
+            expect(_.defaults({ flavor: 'chocolate' }, { flavor: 'vanilla', sprinkles: 'lots' })).to.eql({ flavor: 'chocolate', sprinkles: 'lots' });
+            expect(_.defaults({ age: 10 }, { name: 'dan' })).to.eql({ age: 10, name: 'dan' });
+            expect(_.defaults({ age: 10 }, { name: 'dan', age: 20, address: 'yolo' })).to.eql({ age: 10, name: 'dan', address: 'yolo' });
+        });
     });
-  });
 })
