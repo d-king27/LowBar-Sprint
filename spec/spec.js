@@ -211,4 +211,47 @@ describe('_ lowbar', () => {
             expect(_.uniq([1, 1, 2])).to.eql([1, 2]);
         });
     });
+    describe('#map', () => {
+        it('it is a function', () => {
+          expect(_.map).to.be.a('function');
+        });
+        it('returns an array', () => {
+          expect(_.map()).to.eql([]);
+    
+        });
+        it('returns a new array with every element passed through the function',() => {
+          let times10 = (a) => {
+            return a * 10;
+          };
+         let capitalize =(str) => {
+            return str.toUpperCase();
+          };
+          let count = 0;
+          let incrCount = () => {
+            count++;
+          };
+          _.map([1, 2, 3, 4], incrCount);
+          expect(count).to.equal(4);
+          expect(_.map([1, 2, 3, 4], times10)).to.eql([10, 20, 30, 40]);
+          expect(_.map(['a', 'b'], capitalize)).to.eql(['A', 'B']);
+          expect(_.map({ one: 1, two: 2, three: 3 }, times10)).to.eql([10, 20, 30]);
+        });
+      });
+
+      describe('#contains', () => {
+        it('it is a function',  () => {
+          expect(_.contains).to.be.a('function');
+        });
+        it('it returns false if one or less arguments are passed', () => {
+          expect(_.contains()).to.equal(false);
+          expect(_.contains('anything')).to.equal(false);
+          expect(_.contains([1, 2, 3])).to.equal(false);
+        });
+        it('returns true if value present in array', () => {
+          expect(_.contains([1, 2, 3], 1)).to.equal(true);
+          expect(_.contains([1, 2, 3], 5)).to.equal(false);
+          expect(_.contains('hello', 'h')).to.equal(true);
+          expect(_.contains({a:1,b:2,c:3}, 5)).to.equal(false);
+        });
+      });
 })

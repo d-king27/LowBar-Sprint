@@ -21,71 +21,94 @@ _.last = function (input, n = 1) {
 
 };
 _.each = function (list, fn) {
-    if (typeof list === 'string') {return _.each(list.split(''), fn) }
+    if (typeof list === 'string') { return _.each(list.split(''), fn) }
     if (typeof list !== 'object') { return list; }
     if (list === null) { return null; }
     if (Array.isArray(list)) {
-      for (let i = 0; i < list.length; i++) {
-        fn(list[i]);
-      }
+        for (let i = 0; i < list.length; i++) {
+            fn(list[i]);
+        }
     }
     else {
-      var values = Object.values(list);
-      for (let j = 0; j < values.length; j++) {
-        fn(values[j]);
-      }
+        var values = Object.values(list);
+        for (let j = 0; j < values.length; j++) {
+            fn(values[j]);
+        }
     }
-  };
+};
 
-  _.indexOf = function (arr, val) {
+_.indexOf = function (arr, val) {
     let final = -1;
     if (!Array.isArray(arr)) return final;
     if (arr[0] === undefined) return final;
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === val) {
-        final = i;
-        return final;
-      }
+        if (arr[i] === val) {
+            final = i;
+            return final;
+        }
     }
     return final;
+};
+
+_.filter = function (list, pred) {
+    let final = []
+    let genPushFunc = (fn) => {
+        return (a) => {
+            if (fn(a) === true) {
+                final.push(a)
+            }
+        }
+    }
+    _.each(list, genPushFunc(pred))
+    return final
+
+}
+
+_.reject = function (list, pred) {
+    let final = []
+    let genPushFunc = (fn) => {
+        return (a) => {
+            if (fn(a) === false) {
+                final.push(a)
+            }
+        }
+    }
+    _.each(list, genPushFunc(pred))
+    return final
+
+}
+_.uniq = function (list) {
+    let capture = {}
+    let nList = Object.values(list)
+    _.each(nList, (a) => {
+        capture[a] = a
+    })
+    return Object.values(capture)
+
+}
+
+_.map = function (list, func) {
+    let arr = []
+    function pusher(fn) {
+        return (y) => {
+            arr.push(fn(y))
+        }
+    }
+    _.each(list, pusher(func))
+
+    return arr
+
+}
+
+_.contains = function (list, val) {
+    if(list === undefined) {return false}
+   let arr = Object.values(list)
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === val) return true;
+      }
+    
+    return false;
   };
-
-  _.filter = function (list, pred){
-    let final = []
-    let genPushFunc = (fn) =>{
-        return (a) => {
-            if (fn(a) === true){
-                final.push(a)
-            }
-        }
-    }
-    _.each(list,genPushFunc(pred))
-    return final  
-
-  }
-
-  _.reject = function (list, pred){
-    let final = []
-    let genPushFunc = (fn) =>{
-        return (a) => {
-            if (fn(a) === false){
-                final.push(a)
-            }
-        }
-    }
-    _.each(list,genPushFunc(pred))
-    return final  
-
-  }
-  _.uniq = function(list){
-      let capture = {}
-      let nList = Object.values(list)
-      _.each(nList,(a)=>{
-          capture[a] = a
-      })
-      return Object.values(capture)
-
-  }
 
 
 module.exports = _
