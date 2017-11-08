@@ -308,4 +308,47 @@ describe('_ lowbar', () => {
           expect(_.reduce(testWords1, rrTestFuncStringMess)).to.equal('henrythomasdrahcir');
         });
       });
+
+
+  describe('#every',  () => {
+    it('it is a function', ()  => {
+      expect(_.every).to.be.a('function');
+    });
+    it('it returns true if passed with no second arguement',() => {
+      expect(_.every()).to.equal(true);
+      expect(_.every([1, 2, 3, 4])).to.equal(true);
+      expect(_.every(234)).to.equal(true);
+      expect(_.every('234')).to.equal(true);
+    });
+    it('it returns true/false if all items in the first arguement pass/fail the predicate fn', () => {
+      let lower10 = (a) => {
+        return a < 10;
+      }
+      expect(_.every([1, 2, 3], lower10)).to.equal(true);
+      expect(_.every([1, 2, 3, 40], lower10)).to.equal(false);
+      expect(_.every({ a: 1, b: 2 }, lower10)).to.equal(true);
+    });
+  });
+
+
+
+  describe('#some', () => {
+    it('it is a function', () => {
+      expect(_.some).to.be.a('function');
+    });
+    it('it returns true if passed with no second arguement', () => {
+      expect(_.some()).to.equal(true);
+      expect(_.some([1, 2, 3, 4])).to.equal(true);
+      expect(_.some(234)).to.equal(true);
+      expect(_.some('234')).to.equal(true);
+    });
+    it('it returns true/false if one item in the first arguement pass/fail the predicate fn', () => {
+      let lower10 = (a) => {
+        return a < 10;
+      }
+      expect(_.some([20, 30, 40], lower10)).to.equal(false);
+      expect(_.some([1, 2, 3, 40], lower10)).to.equal(true);
+      expect(_.some({ a: 1, b: 20 }, lower10)).to.equal(true);
+    });
+  });
 })

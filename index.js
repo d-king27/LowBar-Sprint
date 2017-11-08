@@ -132,5 +132,29 @@ _.contains = function (list, val) {
     return acc;
   };
 
+  _.every = function (list, fn) {
+    if (fn === undefined) return true;
+    if (typeof list !== 'object') { return true; }
+    list = Object.values(list); 
+    let test = true;
+    for (let i = 0; i < list.length; i++) {
+      if (test) test = fn(list[i]);
+    }
+    return test;
+  };
+
+  _.some = function (list, fn) {
+    if (fn === undefined) return true;
+    if (typeof list !== 'object') { return true; }
+    list = Object.values(list); 
+    let test = false;
+    for (let i = 0; i < list.length; i++) {
+      if (!test) {
+        test = fn(list[i]);
+      }
+    }
+    return test;
+  };
+
 
 module.exports = _
