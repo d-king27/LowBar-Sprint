@@ -374,8 +374,8 @@ describe('_ lowbar', () => {
         });
     });
 
-    describe('#defaults',  () => {
-        it('it is a function',  () => {
+    describe('#defaults', () => {
+        it('it is a function', () => {
             expect(_.defaults).to.be.a('function');
         });
         it('if no arguments passed returns undefined', () => {
@@ -386,10 +386,30 @@ describe('_ lowbar', () => {
             expect(_.defaults('hello', 'world')).to.equal('hello');
             expect(_.defaults(1, null)).to.equal(1);
         });
-        it('it should add or replace a given key value pair in an object',() => {
+        it('it should add or replace a given key value pair in an object', () => {
             expect(_.defaults({ flavor: 'chocolate' }, { flavor: 'vanilla', sprinkles: 'lots' })).to.eql({ flavor: 'chocolate', sprinkles: 'lots' });
             expect(_.defaults({ age: 10 }, { name: 'dan' })).to.eql({ age: 10, name: 'dan' });
             expect(_.defaults({ age: 10 }, { name: 'dan', age: 20, address: 'yolo' })).to.eql({ age: 10, name: 'dan', address: 'yolo' });
+        });
+    });
+
+    describe('once',  () => {
+        it('is a function', () => {
+            expect(_.once).to.be.a('function');
+        });
+        it('returns a function', () => {
+            expect(_.once()).to.be.a('function');
+        });
+
+        it('returns a function that is a version of the passed function that can only be called one time', () => {
+            let count = 0
+            function counter() {
+                count++
+            }
+            let example = _.once(counter)
+            example()
+            example()
+            expect(count).to.equal(1);
         });
     });
 })

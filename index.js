@@ -187,8 +187,18 @@ _.defaults = function(){
     let final = Object.assign.apply(null,objs)
     arguments[0] = final
     return arguments[0]
-
 } 
+
+_.once = function(fn) {
+    let limit = 0
+    return ()=>{
+      if (limit > 0) {return}
+      limit++
+      return fn()
+    }
+    
+  };
+  
 
 
 module.exports = _
