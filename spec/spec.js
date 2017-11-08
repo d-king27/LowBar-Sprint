@@ -272,4 +272,40 @@ describe('_ lowbar', () => {
           expect(_.pluck({a:{ name: 'moe', age: 40 },b: { name: 'larry', age: 50 }, c:{ name: 'curly', age: 60 }}, 'name')).to.eql(['moe', 'larry', 'curly']);
         });
       });
+
+
+      describe('#reduce', () => {
+        var rrTestFuncSum = (a, b) =>{ 
+          return a + b;
+        };
+        var rrTestFuncExp = (a, b) => {
+          return a * b;
+        };
+        var rrTestFuncStringMess =  (a, b) => {
+          return b += a.split('').reverse().join('');
+        };
+        var testArray = [1, 3, 5];
+        var testWords1 = ['thomas', 'richard', 'henry'];
+        var testWords2 = ['richard', 'henry'];
+    
+        it('should be a function', function () {
+          expect(_.reduce).to.be.a('function');
+        });
+        it('should output according to the function input', () => {
+          expect(_.reduce(testArray, rrTestFuncSum, 0)).to.be.a('number');
+        });
+        it('should sum numbers',  () => {
+          expect(_.reduce(testArray, rrTestFuncSum, 0)).to.eql(9);
+        });
+        it('should sum numbers even if given no base arguement', () => {
+          expect(_.reduce(testArray, rrTestFuncSum)).to.equal(9);
+        });
+        it('should multiply numbers even if given no base arguement', () => {
+          expect(_.reduce(testArray, rrTestFuncExp)).to.equal(15);
+        });
+        it('should implement mildly complex functions on strings',  () =>{
+          expect(_.reduce(testWords2, rrTestFuncStringMess, '')).to.equal('henrydrahcir');
+          expect(_.reduce(testWords1, rrTestFuncStringMess)).to.equal('henrythomasdrahcir');
+        });
+      });
 })

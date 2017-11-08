@@ -26,13 +26,13 @@ _.each = function (list, fn) {
     if (list === null) { return null; }
     if (Array.isArray(list)) {
         for (let i = 0; i < list.length; i++) {
-            fn(list[i]);
+            fn(list[i],i,list);
         }
     }
     else {
         var values = Object.values(list);
         for (let j = 0; j < values.length; j++) {
-            fn(values[j]);
+            fn(values[j], j, values);
         }
     }
 };
@@ -118,7 +118,18 @@ _.contains = function (list, val) {
         return item[val];
       });
     return final;
-  
+  };
+
+
+  _.reduce = function (list, iteratee, initial) {
+    if (initial === undefined) {initial = list[0]
+    list = list.slice(1)}
+    let acc = initial;
+   let arr = Object.values(list)
+      for (let i = 0; i < arr.length; i++) {
+        acc = iteratee(acc, arr[i], i, arr);
+      }
+    return acc;
   };
 
 
