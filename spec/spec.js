@@ -351,4 +351,26 @@ describe('_ lowbar', () => {
       expect(_.some({ a: 1, b: 20 }, lower10)).to.equal(true);
     });
   });
+  describe('#extend', function () {
+    it('it is a function', function () {
+      expect(_.extend).to.be.a('function');
+    });
+    it('if no arguments passed returns undefined', function () {
+      expect(_.extend()).to.equal(undefined);
+    });
+    it('if not passed with any objects returns first argument', function () {
+      expect(_.extend(3, 'tre', true)).to.equal(3);
+      expect(_.extend(1, null, 1)).to.equal(1);
+    });
+    it('ignores any non objects', function () {
+      expect(_.extend({}, 2, 3, { a: 1 }, 'string')).to.eql({ a: 1 });
+      expect(_.extend({},2, 3, { a: 1 })).to.eql({ a: 1 });
+
+    });
+    it('copies all the properties of given objects into one object', function () {
+      expect(_.extend({ name: 'moe' }, { age: 50 })).to.eql({ name: 'moe', age: 50 });
+      expect(_.extend({ name: 'moe' }, [1])).to.eql({ name: 'moe', '0': 1 });
+      expect(_.extend({ name: 'moe' }, { age: 50 }, { address: '12a' })).to.eql({ name: 'moe', age: 50, address: '12a' });
+    });
+  });
 })

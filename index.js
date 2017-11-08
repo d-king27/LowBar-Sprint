@@ -26,7 +26,7 @@ _.each = function (list, fn) {
     if (list === null) { return null; }
     if (Array.isArray(list)) {
         for (let i = 0; i < list.length; i++) {
-            fn(list[i],i,list);
+            fn(list[i], i, list);
         }
     }
     else {
@@ -101,60 +101,79 @@ _.map = function (list, func) {
 }
 
 _.contains = function (list, val) {
-    if(list === undefined) {return false}
-   let arr = Object.values(list)
-      for (let i = 0; i < arr.length; i++) {
+    if (list === undefined) { return false }
+    let arr = Object.values(list)
+    for (let i = 0; i < arr.length; i++) {
         if (arr[i] === val) return true;
-      }
-    
+    }
+
     return false;
-  };
+};
 
-  _.pluck = function (list, val) {
-      if (typeof list !== 'object'){return []}
-      if(list === null){return []}
-      arr = Object.values(list)
-      let final = _.map(arr,  (item) => {
+_.pluck = function (list, val) {
+    if (typeof list !== 'object') { return [] }
+    if (list === null) { return [] }
+    arr = Object.values(list)
+    let final = _.map(arr, (item) => {
         return item[val];
-      });
+    });
     return final;
-  };
+};
 
 
-  _.reduce = function (list, iteratee, initial) {
-    if (initial === undefined) {initial = list[0]
-    list = list.slice(1)}
+_.reduce = function (list, iteratee, initial) {
+    if (initial === undefined) {
+        initial = list[0]
+        list = list.slice(1)
+    }
     let acc = initial;
-   let arr = Object.values(list)
-      for (let i = 0; i < arr.length; i++) {
+    let arr = Object.values(list)
+    for (let i = 0; i < arr.length; i++) {
         acc = iteratee(acc, arr[i], i, arr);
-      }
+    }
     return acc;
-  };
+};
 
-  _.every = function (list, fn) {
+_.every = function (list, fn) {
     if (fn === undefined) return true;
     if (typeof list !== 'object') { return true; }
-    list = Object.values(list); 
+    list = Object.values(list);
     let test = true;
     for (let i = 0; i < list.length; i++) {
-      if (test) test = fn(list[i]);
+        if (test) test = fn(list[i]);
     }
     return test;
-  };
+};
 
-  _.some = function (list, fn) {
+_.some = function (list, fn) {
     if (fn === undefined) return true;
     if (typeof list !== 'object') { return true; }
-    list = Object.values(list); 
+    list = Object.values(list);
     let test = false;
     for (let i = 0; i < list.length; i++) {
-      if (!test) {
-        test = fn(list[i]);
-      }
+        if (!test) {
+            test = fn(list[i]);
+        }
     }
     return test;
-  };
+};
+
+_.extend = function(){
+    if (Object.values(arguments).length === 0){return undefined}
+    if (Object.values(arguments).length === 1){return arguments[0]}
+    let extentions = _.filter(arguments,(item,i)=>{
+        if(i === 0 ){return false}
+        if(typeof item === 'object'){return true}
+        else return false
+    })
+    let objs = [arguments[0]].concat(extentions)
+
+    let final = Object.assign.apply(null,objs)
+    if (Object.values(final).length === 0){return arguments[0]}
+    return final
+    
+
+}
 
 
 module.exports = _
