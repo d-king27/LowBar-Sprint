@@ -78,7 +78,13 @@ _.each = function (list, fn) {
 
   }
   _.uniq = function(list){
-      
+      let capture = {}
+      let nList = Object.values(list)
+      _.each(nList,(a)=>{
+          capture[a] = a
+      })
+      return Object.values(capture)
+
   }
 
 
