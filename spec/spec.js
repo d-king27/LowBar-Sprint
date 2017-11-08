@@ -254,4 +254,22 @@ describe('_ lowbar', () => {
           expect(_.contains({a:1,b:2,c:3}, 5)).to.equal(false);
         });
       });
+
+      describe('#pluck',  () => {
+        it('it is a function', () => {
+          expect(_.pluck).to.be.a('function');
+        });
+        it('it returns the first arguement if the first arguement is not an array', () => {
+          expect(_.pluck()).to.eql([]);
+          expect(_.pluck('anything')).to.eql([]);
+          expect(_.pluck(2)).to.eql([]);
+        });
+        it('returns the values coresponding to a given key value in an array of objects',  () => {
+          expect(_.pluck([{ name: 'hello' }], 'name')).to.eql(['hello']);
+          expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'name')).to.eql(['moe', 'larry', 'curly']);
+          expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'age')).to.eql([40, 50, 60]);
+          expect(_.pluck([{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }], 'oiuytrf')).to.eql([undefined, undefined, undefined]);
+          expect(_.pluck({a:{ name: 'moe', age: 40 },b: { name: 'larry', age: 50 }, c:{ name: 'curly', age: 60 }}, 'name')).to.eql(['moe', 'larry', 'curly']);
+        });
+      });
 })

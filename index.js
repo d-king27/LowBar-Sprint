@@ -110,5 +110,16 @@ _.contains = function (list, val) {
     return false;
   };
 
+  _.pluck = function (list, val) {
+      if (typeof list !== 'object'){return []}
+      if(list === null){return []}
+      arr = Object.values(list)
+      let final = _.map(arr,  (item) => {
+        return item[val];
+      });
+    return final;
+  
+  };
+
 
 module.exports = _
