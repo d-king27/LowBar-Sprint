@@ -393,7 +393,7 @@ describe('_ lowbar', () => {
         });
     });
 
-    describe('once',  () => {
+    describe('#once',  () => {
         it('is a function', () => {
             expect(_.once).to.be.a('function');
         });
@@ -406,10 +406,76 @@ describe('_ lowbar', () => {
             function counter() {
                 count++
             }
-            let example = _.once(counter)
-            example()
-            example()
+            let test = _.once(counter)
+            test()
+            test()
             expect(count).to.equal(1);
         });
     });
+
+    describe('#negate', () => {
+        it('is a function', () => {
+          expect(_.negate).to.be.a('function');
+        });
+        it('returns a function',  () => {
+          expect(_.negate()).to.be.a('function');
+        });
+        function isOne (x) {
+          return x === 1;
+        }
+        let test = _.negate(isOne);
+        it('returns a function that is the opposite of what was passed', () => {
+          expect(test(1)).to.equal(false);
+        })
+      });
+
+      describe('#shuffle', ()=>{
+        it('is a function', () => {
+          expect(_.shuffle).to.be.a('function');
+        });
+        it('returns a list of the same length', () => {
+          expect(_.shuffle([1,2,3]).length).to.eql([1,2,3].length)
+        })
+        it('should maintain the contents of the array', () => {
+            expect(_.shuffle([1,2,3,4,5]).sort()).to.eql([1,2,3,4,5])
+          })
+        it('should consistantly shuffle the array in question',() => {
+            let unlikely = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+            expect((_.shuffle(unlikely)[1] ===_.shuffle(unlikely)[1])).to.equal(false)
+            expect((_.shuffle(unlikely)[9] ===_.shuffle(unlikely)[9])).to.equal(false)
+            expect((_.shuffle(unlikely)[12] ===_.shuffle(unlikely)[12])).to.equal(false)
+        })  
+      })
+
+      describe('#invoke', ()=>{
+        it('is a function', () => {
+          expect(_.invoke).to.be.a('function');
+        });
+
+        it('should call sort method on each element in an array and return results in an array', () => {
+            expect(_.invoke([[5, 1, 7],[3, 2, 1]], "sort")).to.equal([[1, 5, 7], [1, 2, 3]]);
+          });
+          it('should call sort method on each element in an object and return results in an array', () => {
+            expect(_.invoke({a:[5, 1, 7],b:[3, 2, 1]}, "sort")).to.equal([[1, 5, 7], [1, 2, 3]]);
+          });
+
+          it('should be able to pass arguements into the invoked function', () => {
+            expect(_.invoke(["hello"], "concat", "world")).to.equal(['helloworld'])
+          });
+        
+      })
 })
+
+
+
+// it "should call sort method on each element in an array and return results in an array", ->
+// result = _.invoke([[5, 1, 7], [3, 2, 1]], "sort");
+// expect(result).toEqual([[1, 5, 7], [1, 2, 3]])
+
+// it "should call sort method on each value in an object and return results in an array", ->
+// result = _.invoke({a: [5, 1, 7], b: [3, 2, 66]}, "sort")
+// expect(result).toEqual([[1, 5, 7], [2, 3, 66]])
+
+// it "should pass extra arguments onto method invocation", ->
+// result = _.invoke(["lol"], "concat", "bbq")
+// expect(result).toEqual(["lolbbq"])

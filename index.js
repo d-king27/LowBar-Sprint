@@ -158,47 +158,73 @@ _.some = function (list, fn) {
     return test;
 };
 
-_.extend = function(){
-    if (Object.values(arguments).length === 0){return undefined}
-    if (Object.values(arguments).length === 1){return arguments[0]}
-    let extentions = _.filter(arguments,(item,i)=>{
-        if(i === 0 ){return false}
-        if(typeof item === 'object'){return true}
+_.extend = function () {
+    if (Object.values(arguments).length === 0) { return undefined }
+    if (Object.values(arguments).length === 1) { return arguments[0] }
+    let extentions = _.filter(arguments, (item, i) => {
+        if (i === 0) { return false }
+        if (typeof item === 'object') { return true }
         else return false
     })
     let objs = [arguments[0]].concat(extentions)
 
-    let final = Object.assign.apply(null,objs)
-    if (Object.values(final).length === 0){return arguments[0]}
+    let final = Object.assign.apply(null, objs)
+    if (Object.values(final).length === 0) { return arguments[0] }
     arguments[0] = final
     return arguments[0]
 }
 
-_.defaults = function(){
-    if (Object.values(arguments).length === 0){return undefined}
-    if (Object.values(arguments).length === 1){return arguments[0]}
-    let extentions = _.filter(arguments,(item,i)=>{
-        if(i === 0 ){return false}
-        if(typeof item === 'object' && item !== null){return true}
+_.defaults = function () {
+    if (Object.values(arguments).length === 0) { return undefined }
+    if (Object.values(arguments).length === 1) { return arguments[0] }
+    let extentions = _.filter(arguments, (item, i) => {
+        if (i === 0) { return false }
+        if (typeof item === 'object' && item !== null) { return true }
         else return false
     })
-    if(extentions.length === 0){return arguments[0]}
+    if (extentions.length === 0) { return arguments[0] }
     let objs = [arguments[0]].concat(extentions).reverse()
-    let final = Object.assign.apply(null,objs)
+    let final = Object.assign.apply(null, objs)
     arguments[0] = final
     return arguments[0]
-} 
+}
 
-_.once = function(fn) {
+_.once = function (fn) {
     let limit = 0
-    return ()=>{
-      if (limit > 0) {return}
-      limit++
-      return fn()
+    return () => {
+        if (limit > 0) { return }
+        limit++
+        return fn()
     }
+
+};
+
+_.negate = function (fn) {
+    return (x) => {
+        return fn(x) === false;
+    }
+}
+_.shuffle = function (set) {
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    let length = set.length;
+    let shuffled = new Array(length);
+    for (let i = 0; i < length; i++) {
+        rand = getRandomInt(0, i);
+        if (rand !== i) shuffled[i] = shuffled[rand];
+        shuffled[rand] = set[i];
+    }
+    return shuffled;
+
+
+}
+
+_.invoke = (container, methodName) => {
     
-  };
-  
+}
 
 
 module.exports = _
