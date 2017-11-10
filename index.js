@@ -233,4 +233,21 @@ _.invokes = function(obj, methodname){
 }
 
 
+_.sortBy = function(){
+
+}
+
+_.zip = function(){
+   let capture = {}
+   let list = Object.values(arguments)
+    _.each(list,(item)=>{
+        _.each(item,(element,i)=>{
+            if(!capture[i]){capture[i] = []}
+            capture[i].push(element)
+        })
+    })
+    return Object.values(capture)
+
+}
+
 module.exports = _

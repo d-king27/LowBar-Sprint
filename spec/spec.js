@@ -458,10 +458,30 @@ describe('_ lowbar', () => {
         })
 
         it('should call sort method on each element in an object and return results in an array', () => {
-            expect(_.invokes({a:[5, 1, 7], b:[3, 2, 1]}, "sort")).to.eql([[1, 5, 7], [1, 2, 3]])
+            expect(_.invokes({ a: [5, 1, 7], b: [3, 2, 1] }, "sort")).to.eql([[1, 5, 7], [1, 2, 3]])
         })
         it('should be able to pass other arguments into the function', () => {
-            expect(_.invokes(['hello'], 'concat','World')).to.eql(['helloWorld'])
+            expect(_.invokes(['hello'], 'concat', 'World')).to.eql(['helloWorld'])
+        })
+    })
+
+
+    describe('#sortBy', () => {
+
+        it('to be a function', () => {
+            expect(_.sortBy).to.be.a('function')
+        })
+    })
+
+
+    describe('#zip', () => {
+
+        it('to be a function', () => {
+            expect(_.zip).to.be.a('function')
+        })
+
+        it('transfers each arguemnent to the coresponding index to a new array of arrays', () => {
+            expect(_.zip(['a','b','c'],[1,2,3],['#','$','&'])).to.eql([['a',1,'#'],['b',2,"$"],['c',3,'&']])
         })
     })
 
@@ -471,14 +491,3 @@ describe('_ lowbar', () => {
 
 
 
-// it "", ->
-// result = _.invoke([[5, 1, 7], [3, 2, 1]], "sort");
-// expect(result).toEqual([[1, 5, 7], [1, 2, 3]])
-
-// it "should call sort method on each value in an object and return results in an array", ->
-// result = _.invoke({a: [5, 1, 7], b: [3, 2, 66]}, "sort")
-// expect(result).toEqual([[1, 5, 7], [2, 3, 66]])
-
-// it "should pass extra arguments onto method invocation", ->
-// result = _.invoke(["lol"], "concat", "bbq")
-// expect(result).toEqual(["lolbbq"])
