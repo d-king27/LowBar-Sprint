@@ -222,8 +222,14 @@ _.shuffle = function (set) {
 
 }
 
-_.invoke = (container, methodName) => {
-    
+_.invokes = function(obj, methodname){
+    let args = Object.values(arguments)
+    args = args.slice(2)
+    return _.map(obj, (value) => {
+          var val = value[methodname];
+          if(val === null){return value}
+          return val.apply(value, args);
+        });
 }
 
 
