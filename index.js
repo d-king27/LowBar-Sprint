@@ -222,32 +222,134 @@ _.shuffle = function (set) {
 
 }
 
-_.invokes = function(obj, methodname){
+_.invokes = function (obj, methodname) {
     let args = Object.values(arguments)
     args = args.slice(2)
     return _.map(obj, (value) => {
-          var val = value[methodname];
-          if(val === null){return value}
-          return val.apply(value, args);
-        });
+        var val = value[methodname];
+        if (val === null) { return value }
+        return val.apply(value, args);
+    });
 }
 
 
-_.sortBy = function(){
-
-}
-
-_.zip = function(){
-   let capture = {}
-   let list = Object.values(arguments)
-    _.each(list,(item)=>{
-        _.each(item,(element,i)=>{
-            if(!capture[i]){capture[i] = []}
+_.zip = function () {
+    let capture = {}
+    let list = Object.values(arguments)
+    _.each(list, (item) => {
+        _.each(item, (element, i) => {
+            if (!capture[i]) { capture[i] = [] }
             capture[i].push(element)
         })
     })
     return Object.values(capture)
 
 }
+
+
+_.sortedIndex = function (array, obj, fn) {
+    let low = 0
+    let high = array.length;
+    if (fn === undefined) {
+        while (low < high) {
+            var mid = Math.floor((low + high) / 2);
+            if (array[mid] < obj) low = mid + 1; else high = mid;
+        }
+        return low;
+    }
+    else {
+        while (low < high) {
+            var mid = Math.floor((low + high) / 2);
+            if (fn(array[mid]) < fn(obj)) low = mid + 1; else high = mid;
+        }
+        return low;
+    }
+};
+
+_.flatten = function (list, bool) {
+    let final = []
+    function flatten(array, pred) {
+        array.forEach(function (item) {
+            if (Array.isArray(item)) {
+                item.forEach((ele) => {
+                    if (!pred) {
+                        if (Array.isArray(ele)) {
+                            return flatten(ele)
+                        }
+                    }
+                    final.push(ele)
+                })
+            }
+            else final.push(item)
+
+        })
+        return final
+    }
+    return flatten(list, bool)
+
+}
+
+_.sortBy = function (list, fn, con) {
+    let data =null
+    if (con){
+         data = _.map(list, (item, i, fullList) => {
+            return {
+                OriginVal: item,
+                index: i,
+                eval: fn(item[con], i, fullList)
+            }
+        })
+
+    }
+    else if(!con) {
+       
+        data = _.map(list, (item, i, fullList) => {
+        return {
+            OriginVal: item,
+            index: i,
+            eval: fn(item, i, fullList)
+        }
+    })}
+    let sorted = data.sort((a, b)=>{
+        let first = a.eval
+        let second = b.eval
+        if(first !== second){
+            if(first > second || first === undefined) return 1
+            if(second > first || second === undefined) return -1
+        }
+        return a.index - b.index
+
+    })
+    return _.pluck(sorted,'OriginVal')
+
+}
+
+
+_.intersection = function () {
+
+}
+
+_.difference = function () {
+
+}
+
+_.memorize = function () {
+
+}
+_.delay = function () {
+
+}
+_.where = function () {
+
+}
+
+_.throttle = function () {
+
+}
+
+_.partial = function () {
+
+}
+
 
 module.exports = _

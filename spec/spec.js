@@ -466,14 +466,6 @@ describe('_ lowbar', () => {
     })
 
 
-    describe('#sortBy', () => {
-
-        it('to be a function', () => {
-            expect(_.sortBy).to.be.a('function')
-        })
-    })
-
-
     describe('#zip', () => {
 
         it('to be a function', () => {
@@ -481,13 +473,47 @@ describe('_ lowbar', () => {
         })
 
         it('transfers each arguemnent to the coresponding index to a new array of arrays', () => {
-            expect(_.zip(['a','b','c'],[1,2,3],['#','$','&'])).to.eql([['a',1,'#'],['b',2,"$"],['c',3,'&']])
+            expect(_.zip(['a', 'b', 'c'], [1, 2, 3], ['#', '$', '&'])).to.eql([['a', 1, '#'], ['b', 2, "$"], ['c', 3, '&']])
         })
+    })
+
+    describe('#flatten', () => {
+
+        it('to be a function', () => {
+            expect(_.flatten).to.be.a('function')
+        })
+
+        it('flattens an array', () => {
+            expect(_.flatten([1, [2], [3], [4, [5]]])).to.eql([1, 2, 3, 4, 5])
+        })
+    })
+
+    describe('#sortBy', () => {
+
+        it('to be a function', () => {
+            expect(_.sortBy).to.be.a('function')
+        })
+
+        it('returns a sorted array by criteria', () => {
+            expect(_.sortBy([1, 2, 3, 4, 5, 6], (num) =>{ return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2])
+            expect(_.sortBy([40,50,60], (a)=> { return -a})).to.eql([60,50,40])
+        })
+
+        it('returns a sorted array by key value from an object', () => {
+            let initial = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
+            let final = [{ name: 'curly', age: 60 }, { name: 'larry', age: 50 }, { name: 'moe', age: 40 }];
+            expect(_.sortBy(initial, (a)=>{return -a},'age')).to.eql(final)
+        })
+        //*************************************************************************************//
     })
 
 
 
 })
+
+
+
+
 
 
 
