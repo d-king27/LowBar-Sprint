@@ -495,17 +495,51 @@ describe('_ lowbar', () => {
         })
 
         it('returns a sorted array by criteria', () => {
-            expect(_.sortBy([1, 2, 3, 4, 5, 6], (num) =>{ return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2])
-            expect(_.sortBy([40,50,60], (a)=> { return -a})).to.eql([60,50,40])
+            expect(_.sortBy([1, 2, 3, 4, 5, 6], (num) => { return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2])
+            expect(_.sortBy([40, 50, 60], (a) => { return -a })).to.eql([60, 50, 40])
         })
 
         it('returns a sorted array by key value from an object', () => {
             let initial = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
             let final = [{ name: 'curly', age: 60 }, { name: 'larry', age: 50 }, { name: 'moe', age: 40 }];
-            expect(_.sortBy(initial, (a)=>{return -a},'age')).to.eql(final)
+            expect(_.sortBy(initial, (a) => { return -a }, 'age')).to.eql(final)
         })
         //*************************************************************************************//
     })
+
+    describe('#intersection', () => {
+
+        it('to be a function', () => {
+            expect(_.intersection).to.be.a('function')
+        })
+
+        it('produces an array of all common values within the given arguements of arrays', () => {
+            expect(_.intersection([1, 2, 3], [3, 4, 5])).to.eql([3])
+        })
+    })
+
+    describe('#difference', () => {
+
+        it('to be a function', () => {
+            expect(_.difference).to.be.a('function')
+        })
+
+        it('produces an array of all common values within the given arguements of arrays', () => {
+            expect(_.difference([1, 2, 3], [3, 4, 5])).to.eql([1,2])
+        })
+    })
+
+    describe('#memorize', () => {
+        
+                it('to be a function', () => {
+                    expect(_.memorize).to.be.a('function')
+                })
+        
+                it('memoises a function', () => {
+                    //expect(_.memoise()).to.eql()
+                })
+            })
+
 
 
 

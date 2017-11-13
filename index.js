@@ -290,9 +290,9 @@ _.flatten = function (list, bool) {
 }
 
 _.sortBy = function (list, fn, con) {
-    let data =null
-    if (con){
-         data = _.map(list, (item, i, fullList) => {
+    let data = null
+    if (con) {
+        data = _.map(list, (item, i, fullList) => {
             return {
                 OriginVal: item,
                 index: i,
@@ -301,41 +301,78 @@ _.sortBy = function (list, fn, con) {
         })
 
     }
-    else if(!con) {
-       
+    else if (!con) {
+
         data = _.map(list, (item, i, fullList) => {
-        return {
-            OriginVal: item,
-            index: i,
-            eval: fn(item, i, fullList)
-        }
-    })}
-    let sorted = data.sort((a, b)=>{
+            return {
+                OriginVal: item,
+                index: i,
+                eval: fn(item, i, fullList)
+            }
+        })
+    }
+    let sorted = data.sort((a, b) => {
         let first = a.eval
         let second = b.eval
-        if(first !== second){
-            if(first > second || first === undefined) return 1
-            if(second > first || second === undefined) return -1
+        if (first !== second) {
+            if (first > second || first === undefined) return 1
+            if (second > first || second === undefined) return -1
         }
         return a.index - b.index
 
     })
-    return _.pluck(sorted,'OriginVal')
+    return _.pluck(sorted, 'OriginVal')
 
 }
 
 
 _.intersection = function () {
+    let arrays = Object.values(arguments)
+    let capture = {}
+    _.each(arrays, (item, i) => {
+        if (i === 0) {
+            _.each(item, (ele) => {
+                capture[ele] = {
+                    val:ele,
+                    bool:true
+                }
+            })
+        }
+        else {
+            for (let key in capture) {
+                if (!_.contains(item, capture[key].val)) {
+                    capture[key].bool = false
+                }
+            }
 
+        }
+
+    })
+    
+let final = []
+for(let key in capture){
+    if(capture[key].bool===true){
+        final.push(capture[key].val)
+    }
+}
+return final
 }
 
 _.difference = function () {
+    let arrays = Object.values(arguments)
+    let prime = arrays[0]
+    let rest = _.flatten(arrays.slice(1))
+    return _.filter(prime,(item)=>{
+        return !_.contains(rest, item)
+    })
+
 
 }
 
 _.memorize = function () {
 
 }
+
 _.delay = function () {
 
 }
