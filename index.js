@@ -333,8 +333,8 @@ _.intersection = function () {
         if (i === 0) {
             _.each(item, (ele) => {
                 capture[ele] = {
-                    val:ele,
-                    bool:true
+                    val: ele,
+                    bool: true
                 }
             })
         }
@@ -348,45 +348,83 @@ _.intersection = function () {
         }
 
     })
-    
-let final = []
-for(let key in capture){
-    if(capture[key].bool===true){
-        final.push(capture[key].val)
+
+    let final = []
+    for (let key in capture) {
+        if (capture[key].bool === true) {
+            final.push(capture[key].val)
+        }
     }
-}
-return final
+    return final
 }
 
 _.difference = function () {
     let arrays = Object.values(arguments)
     let prime = arrays[0]
     let rest = _.flatten(arrays.slice(1))
-    return _.filter(prime,(item)=>{
+    return _.filter(prime, (item) => {
         return !_.contains(rest, item)
     })
 
 
 }
 
-_.memorize = function () {
+_.delay = function (fn, time) {
+    var args = Object.values(arguments).slice(1)
+    return setTimeout(() => {
+        return fn.apply(null, args);
+    }, Number(time));
+};
+
+_.where = function (list, obj) {
+    let keys = Object.keys(obj)
+
+    return _.filter(list, (item) => {
+        let bool = true
+        _.each(keys, (key) => {
+           if(item[key] === obj[key]){}
+           else bool = false
+
+        })
+        return bool
+
+    })
 
 }
 
-_.delay = function () {
+_.memoize = function(func) {
+    var cache = {};
 
+    return function() {
+      var arg = JSON.stringify(arguments);
+      if (!cache[arg]) {
+        cache[arg] = func.apply(this, arguments);
+      }
+
+      return cache[arg];
+    };
+  };
+
+
+_.partial = function (fn) {
+    args = Object.values(arguments).slice(1)
+    return function(){
+        let inputArgs = Object.values(arguments)
+        let counter = 0
+        let newArgs = _.map(args,(item,i)=>{
+            if(item === '_'){
+                let count = counter
+                counter++
+                return inputArgs[count]}
+            else return item
+
+        })
+        newArgs = newArgs.concat(inputArgs.slice(counter))
+        return fn.apply(this,newArgs)
 }
-_.where = function () {
-
 }
 
-_.throttle = function () {
 
-}
-
-_.partial = function () {
-
-}
 
 
 module.exports = _

@@ -1,5 +1,4 @@
 var expect = require('chai').expect;
-
 var _ = require('../index.js');
 
 
@@ -515,6 +514,7 @@ describe('_ lowbar', () => {
 
         it('produces an array of all common values within the given arguements of arrays', () => {
             expect(_.intersection([1, 2, 3], [3, 4, 5])).to.eql([3])
+            expect(_.intersection(['hello', 'goodbye'], ['hello', 'farewell'])).to.eql(['hello'])
         })
     })
 
@@ -525,25 +525,102 @@ describe('_ lowbar', () => {
         })
 
         it('produces an array of all common values within the given arguements of arrays', () => {
-            expect(_.difference([1, 2, 3], [3, 4, 5])).to.eql([1,2])
+            expect(_.difference(['hello', 'goodbye'], ['hello', 'farewell'])).to.eql(['goodbye'])
         })
     })
 
-    describe('#memorize', () => {
-        
-                it('to be a function', () => {
-                    expect(_.memorize).to.be.a('function')
-                })
-        
-                it('memoises a function', () => {
-                    //expect(_.memoise()).to.eql()
-                })
-            })
+    describe('#where', () => {
+
+        it('to be a function', () => {
+            expect(_.where).to.be.a('function')
+        })
+        let list = [{ a: 1, b: 2 }, { a: 2, c: 9 }, { a: 1, b: 2, c: 3 }]
+
+        it('memoises a function', () => {
+            expect(_.where(list, { a: 1, b: 2 })).to.eql([{ a: 1, b: 2 }, { a: 1, b: 2, c: 3 }])
+        })
+    })
+
+    describe('#memoize', function () {
+        let add = null
+        let memoAdd = null
+
+        beforeEach(function () {
+            add = (a, b) => {
+                return a + b;
+            };
+
+            memoAdd = _.memoize(add);
+        });
+
+        it('to be a function', () => {
+            expect(_.memoize).to.be.a('function')
+        })
+
+        it('should produce the same result as the non-memoized version', function () {
+            expect(add(1, 2)).to.equal(3);
+            expect(memoAdd(1, 2)).to.equal(3);
+        });
+
+        it('should give different results for different arguments', function () {
+            expect(memoAdd(1, 2)).to.equal(3);
+            expect(memoAdd(3, 4)).to.equal(7);
+        });
+
+        it('should not run the memoized function twice for any given set of arguments', function () {
+            let counter = 0
+            let test = () => {counter++
+            return true }
+            let memoTest = _.memoize(test);
+            memoTest()
+            memoTest()
+            expect(counter).to.equal(1)
+
+        });
+    });
+
+    describe('#partial', () => {
+
+        it('to be a function', () => {
+            expect(_.partial).to.be.a('function')
+        })
+
+        it('fills in the partial arguements of a function', () => {
+            let sub = (a, b) => { return a - b }
+            let subfrom4 = _.partial(sub, 4)
+            expect(subfrom4(4)).to.equal(0)
+            let sub4 = _.partial(sub, '_', 4)
+            expect(sub4(20)).to.equal(16)
+        })
+        it('fills in the partial arguements of a function ignoring placeholders', () => {
+            let sub = (a, b) => { return a - b }
+            let sub4 = _.partial(sub, '_', 4)
+            expect(sub4(20)).to.equal(16)
+        })
+    })
 
 
 
+    describe('#delay', () => {
+
+        it('to be a function', () => {
+            expect(_.delay).to.be.a('function')
+        })
+
+        it('delays a function the same as settime out', (done) => {
+            let test = false
+            _.delay(() => {
+                console.log('called')
+                let test = true
+                expect(test).to.equal(true)
+                done()
+            }, 1000)
+            expect(test).to.equal(false)
+        })
+    })
 
 })
+
 
 
 
