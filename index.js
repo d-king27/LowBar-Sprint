@@ -236,8 +236,8 @@ _.invokes = function (obj, methodname) {
 _.zip = function (x) {
     let capture = {};
     let list = Object.values(arguments);
-    if(list.length === 0){return []}
-    if(list.length === 1){return x}
+    if(list.length === 0){return [];}
+    if(list.length === 1){return x;}
     _.each(list, (item) => {
         _.each(item, (element, i) => {
             if (!capture[i]) { capture[i] = []; }
@@ -269,7 +269,7 @@ _.sortedIndex = function (array, obj, fn) {
 };
 
 _.flatten = function (list, bool) {
-    if(!list){return []}
+    if(!list){return [];}
     let final = [];
     function flatten(array, pred) {
         array.forEach(function (item) {
@@ -380,7 +380,7 @@ _.delay = function (fn=_.identity, time) {
 };
 
 _.where = function (list, obj={}) {
-    if(!list){return []}
+    if(!list){return [];}
     let keys = Object.keys(obj);
 
     return _.filter(list, (item) => {

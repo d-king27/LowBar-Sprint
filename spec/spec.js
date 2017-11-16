@@ -82,8 +82,8 @@ describe('_ lowbar', () => {
         });
 
         it('returns a sole argument', () => {
-            let a = [1,2,3]
-            _.each([1,2,3])
+            let a = [1,2,3];
+            _.each([1,2,3]);
             expect(a).to.eql([1,2,3]);
         });
 
