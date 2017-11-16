@@ -4,7 +4,7 @@ var _ = require('../index.js');
 
 
 describe('_ lowbar', () => {
-    'use strict'
+    'use strict';
     it('is an object', () => {
         expect(_).to.be.an('object');
     });
@@ -81,13 +81,19 @@ describe('_ lowbar', () => {
             expect(_.each).to.be.a('function');
         });
 
+        it('returns a sole argument', () => {
+            let a = [1,2,3]
+            _.each([1,2,3])
+            expect(a).to.eql([1,2,3]);
+        });
+
         it(`if passed with an array as the list arguement, 
         calls the function the amount of times equal to the length`, () => {
                 let count = 0;
                 let incrCount = () => {
                     count++;
 
-                }
+                };
 
                 _.each([1, 2, 3], incrCount);
                 expect(count).to.equal(3);
@@ -98,7 +104,7 @@ describe('_ lowbar', () => {
                 let incrCount = () => {
                     count++;
 
-                }
+                };
                 _.each({ a: 1, b: 2, c: 3 }, incrCount);
                 expect(count).to.equal(3);
             });
@@ -108,8 +114,8 @@ describe('_ lowbar', () => {
                 let incrCount = () => {
                     count++;
 
-                }
-                _.each('wow', incrCount)
+                };
+                _.each('aaa', incrCount);
                 expect(count).to.equal(3);
             });
     });
@@ -144,21 +150,21 @@ describe('_ lowbar', () => {
         it('returns an array filtered with the predicate when passed with an array', () => {
             let lowerThan10 = (a) => {
                 return a < 10;
-            }
+            };
             expect(_.filter([1, 2, 11, 12, 10, 9], lowerThan10)).to.eql([1, 2, 9]);
             expect(_.filter([7, 6, 5, 100, 47, 2], lowerThan10)).to.eql([7, 6, 5, 2]);
         });
         it('returns an array filtered with the predicate when passed with a string', () => {
             let letterIsVowel = (a) => {
-                let l = a.toLowerCase()
+                let l = a.toLowerCase();
                 return l === 'a' || l === 'e' || l === 'i' || l === 'o' || l === 'u';
-            }
+            };
             expect(_.filter('hello', letterIsVowel)).to.eql(['e', 'o']);
         });
         it('returns an array filtered with the predicate when passed with an object', () => {
             let greaterThan10 = (a) => {
                 return a > 10;
-            }
+            };
             expect(_.filter({ a: 1, b: 20, c: 9 }, greaterThan10)).to.eql([20]);
             expect(_.filter({ a: 5, b: 10, c: 15, d: 90 }, greaterThan10)).to.eql([15, 90]);
         });
@@ -177,25 +183,26 @@ describe('_ lowbar', () => {
         it('returns an array filtered with the predicate when passed with an array', () => {
             let lowerThan10 = (a) => {
                 return a < 10;
-            }
+            };
             expect(_.reject([1, 2, 11, 12, 10, 9], lowerThan10)).to.eql([11, 12, 10]);
             expect(_.reject([7, 6, 5, 100, 47, 2], lowerThan10)).to.eql([100, 47]);
         });
         it('returns an array filtered with the predicate when passed with a string', () => {
             let letterIsVowel = (a) => {
-                let l = a.toLowerCase()
+                let l = a.toLowerCase();
                 return l === 'a' || l === 'e' || l === 'i' || l === 'o' || l === 'u';
-            }
+            };
             expect(_.reject('hello', letterIsVowel)).to.eql(['h', 'l', 'l']);
         });
         it('returns an array filtered with the predicate when passed with an object', () => {
             let greaterThan10 = (a) => {
                 return a > 10;
-            }
+            };
             expect(_.reject({ a: 1, b: 20, c: 9 }, greaterThan10)).to.eql([1, 9]);
             expect(_.reject({ a: 5, b: 10, c: 15, d: 90 }, greaterThan10)).to.eql([5, 10]);
         });
     });
+
 
     describe('#uniq', function () {
         it('it is a function', () => {
@@ -210,6 +217,8 @@ describe('_ lowbar', () => {
             expect(_.uniq([1, 1, 2])).to.eql([1, 2]);
         });
     });
+
+
     describe('#map', () => {
         it('it is a function', () => {
             expect(_.map).to.be.a('function');
@@ -237,6 +246,7 @@ describe('_ lowbar', () => {
         });
     });
 
+
     describe('#contains', () => {
         it('it is a function', () => {
             expect(_.contains).to.be.a('function');
@@ -253,6 +263,7 @@ describe('_ lowbar', () => {
             expect(_.contains({ a: 1, b: 2, c: 3 }, 5)).to.equal(false);
         });
     });
+
 
     describe('#pluck', () => {
         it('it is a function', () => {
@@ -322,13 +333,12 @@ describe('_ lowbar', () => {
         it('it returns true/false if all items in the first arguement pass/fail the predicate fn', () => {
             let lower10 = (a) => {
                 return a < 10;
-            }
+            };
             expect(_.every([1, 2, 3], lower10)).to.equal(true);
             expect(_.every([1, 2, 3, 40], lower10)).to.equal(false);
             expect(_.every({ a: 1, b: 2 }, lower10)).to.equal(true);
         });
     });
-
 
 
     describe('#some', () => {
@@ -344,7 +354,7 @@ describe('_ lowbar', () => {
         it('it returns true/false if one item in the first arguement pass/fail the predicate fn', () => {
             let lower10 = (a) => {
                 return a < 10;
-            }
+            };
             expect(_.some([20, 30, 40], lower10)).to.equal(false);
             expect(_.some([1, 2, 3, 40], lower10)).to.equal(true);
             expect(_.some({ a: 1, b: 20 }, lower10)).to.equal(true);
@@ -372,6 +382,7 @@ describe('_ lowbar', () => {
             expect(_.extend({ name: 'moe' }, { age: 50 }, { address: '12a' })).to.eql({ name: 'moe', age: 50, address: '12a' });
         });
     });
+
 
     describe('#defaults', () => {
         it('it is a function', () => {
@@ -401,16 +412,17 @@ describe('_ lowbar', () => {
         });
 
         it('returns a function that is a version of the passed function that can only be called one time', () => {
-            let count = 0
+            let count = 0;
             function counter() {
-                count++
+                count++;
             }
-            let test = _.once(counter)
-            test()
-            test()
+            let test = _.once(counter);
+            test();
+            test();
             expect(count).to.equal(1);
         });
     });
+
 
     describe('#negate', () => {
         it('is a function', () => {
@@ -425,125 +437,165 @@ describe('_ lowbar', () => {
         let test = _.negate(isOne);
         it('returns a function that is the opposite of what was passed', () => {
             expect(test(1)).to.equal(false);
-        })
+        });
     });
+
 
     describe('#shuffle', () => {
         it('is a function', () => {
             expect(_.shuffle).to.be.a('function');
         });
         it('returns a list of the same length', () => {
-            expect(_.shuffle([1, 2, 3]).length).to.eql([1, 2, 3].length)
-        })
+            expect(_.shuffle([1, 2, 3]).length).to.eql([1, 2, 3].length);
+        });
         it('should maintain the contents of the array', () => {
-            expect(_.shuffle([1, 2, 3, 4, 5]).sort()).to.eql([1, 2, 3, 4, 5])
-        })
+            expect(_.shuffle([1, 2, 3, 4, 5]).sort()).to.eql([1, 2, 3, 4, 5]);
+        });
         it('should consistantly shuffle the array in question', () => {
-            let unlikely = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-            expect((_.shuffle(unlikely)[1] === _.shuffle(unlikely)[1])).to.equal(false)
-            expect((_.shuffle(unlikely)[9] === _.shuffle(unlikely)[9])).to.equal(false)
-            expect((_.shuffle(unlikely)[12] === _.shuffle(unlikely)[12])).to.equal(false)
-        })
-    })
+            let unlikely = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+            expect((_.shuffle(unlikely)[1] === _.shuffle(unlikely)[1])).to.equal(false);
+            expect((_.shuffle(unlikely)[9] === _.shuffle(unlikely)[9])).to.equal(false);
+            expect((_.shuffle(unlikely)[12] === _.shuffle(unlikely)[12])).to.equal(false);
+        });
+    });
+
 
     describe('#invokes', () => {
 
         it('to be a function', () => {
-            expect(_.invokes).to.be.a('function')
-        })
+            expect(_.invokes).to.be.a('function');
+        });
 
         it('should call sort method on each element in an array and return results in an array', () => {
-            expect(_.invokes([[5, 1, 7], [3, 2, 1]], "sort")).to.eql([[1, 5, 7], [1, 2, 3]])
-        })
+            expect(_.invokes([[5, 1, 7], [3, 2, 1]], 'sort')).to.eql([[1, 5, 7], [1, 2, 3]]);
+        });
 
         it('should call sort method on each element in an object and return results in an array', () => {
-            expect(_.invokes({ a: [5, 1, 7], b: [3, 2, 1] }, "sort")).to.eql([[1, 5, 7], [1, 2, 3]])
-        })
+            expect(_.invokes({ a: [5, 1, 7], b: [3, 2, 1] }, 'sort')).to.eql([[1, 5, 7], [1, 2, 3]]);
+        });
         it('should be able to pass other arguments into the function', () => {
-            expect(_.invokes(['hello'], 'concat', 'World')).to.eql(['helloWorld'])
-        })
-    })
+            expect(_.invokes(['hello'], 'concat', 'World')).to.eql(['helloWorld']);
+        });
+    });
 
 
     describe('#zip', () => {
 
         it('to be a function', () => {
-            expect(_.zip).to.be.a('function')
-        })
+            expect(_.zip).to.be.a('function');
+        });
+
+        it('returns empty array if passed with no arguments', () => {
+            expect(_.zip()).to.eql([]);
+        });
+
+        it('returns a sole argument', () => {
+            expect(_.zip([1,2,3])).to.eql([1,2,3]);
+        });
 
         it('transfers each arguemnent to the coresponding index to a new array of arrays', () => {
-            expect(_.zip(['a', 'b', 'c'], [1, 2, 3], ['#', '$', '&'])).to.eql([['a', 1, '#'], ['b', 2, "$"], ['c', 3, '&']])
-        })
-    })
+            expect(_.zip(['a', 'b', 'c'], [1, 2, 3], ['#', '$', '&'])).to.eql([['a', 1, '#'], ['b', 2, '$'], ['c', 3, '&']]);
+        });
+    });
+
 
     describe('#flatten', () => {
 
         it('to be a function', () => {
-            expect(_.flatten).to.be.a('function')
-        })
+            expect(_.flatten).to.be.a('function');
+        });
+
+        it('returns empty array if passed with no arguments', () => {
+            expect(_.flatten()).to.eql([]);
+        });
+
+        it('returns a sole argument', () => {
+            expect(_.flatten([1,2,3])).to.eql([1,2,3]);
+        });
 
         it('flattens an array', () => {
-            expect(_.flatten([1, [2], [3], [4, [5]]])).to.eql([1, 2, 3, 4, 5])
-        })
-    })
+            expect(_.flatten([1, [2], [3], [4, [5]]])).to.eql([1, 2, 3, 4, 5]);
+        });
+    });
 
     describe('#sortBy', () => {
 
         it('to be a function', () => {
-            expect(_.sortBy).to.be.a('function')
-        })
-
+            expect(_.sortBy).to.be.a('function');
+        });
+        
         it('returns a sorted array by criteria', () => {
-            expect(_.sortBy([1, 2, 3, 4, 5, 6], (num) => { return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2])
-            expect(_.sortBy([40, 50, 60], (a) => { return -a })).to.eql([60, 50, 40])
-        })
+            expect(_.sortBy([1, 2, 3, 4, 5, 6], (num) => { return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2]);
+            expect(_.sortBy([40, 50, 60], (a) => { return -a; })).to.eql([60, 50, 40]);
+        });
 
         it('returns a sorted array by key value from an object', () => {
             let initial = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
             let final = [{ name: 'curly', age: 60 }, { name: 'larry', age: 50 }, { name: 'moe', age: 40 }];
-            expect(_.sortBy(initial, (a) => { return -a }, 'age')).to.eql(final)
-        })
+            expect(_.sortBy(initial, (a) => { return -a; }, 'age')).to.eql(final);
+        });
         //*************************************************************************************//
-    })
+    });
 
     describe('#intersection', () => {
 
         it('to be a function', () => {
-            expect(_.intersection).to.be.a('function')
-        })
+            expect(_.intersection).to.be.a('function');
+        });
+        it('returns empty array if passed with no arguments', () => {
+            expect(_.intersection()).to.eql([]);
+        });
+
+        it('returns a sole argument', () => {
+            expect(_.intersection([1,2,3])).to.eql([1,2,3]);
+        });
 
         it('produces an array of all common values within the given arguements of arrays', () => {
-            expect(_.intersection([1, 2, 3], [3, 4, 5])).to.eql([3])
-            expect(_.intersection(['hello', 'goodbye'], ['hello', 'farewell'])).to.eql(['hello'])
-        })
-    })
+            expect(_.intersection([1, 2, 3], [3, 4, 5])).to.eql([3]);
+            expect(_.intersection(['hello', 'goodbye'], ['hello', 'farewell'])).to.eql(['hello']);
+        });
+    });
 
     describe('#difference', () => {
 
         it('to be a function', () => {
-            expect(_.difference).to.be.a('function')
-        })
+            expect(_.difference).to.be.a('function');
+        });
+        it('returns empty array if passed with no arguments', () => {
+            expect(_.difference()).to.eql([]);
+        });
+
+        it('returns a sole argument', () => {
+            expect(_.difference([1,2,3])).to.eql([1,2,3]);
+        });        
 
         it('produces an array of all common values within the given arguements of arrays', () => {
-            expect(_.difference(['hello', 'goodbye'], ['hello', 'farewell'])).to.eql(['goodbye'])
-        })
-    })
+            expect(_.difference(['hello', 'goodbye'], ['hello', 'farewell'])).to.eql(['goodbye']);
+        });
+    });
 
     describe('#where', () => {
 
         it('to be a function', () => {
-            expect(_.where).to.be.a('function')
-        })
-        let list = [{ a: 1, b: 2 }, { a: 2, c: 9 }, { a: 1, b: 2, c: 3 }]
+            expect(_.where).to.be.a('function');
+        });
+        it('returns empty array if passed with no arguments', () => {
+            expect(_.where()).to.eql([]);
+        });
 
-        it('memoises a function', () => {
-            expect(_.where(list, { a: 1, b: 2 })).to.eql([{ a: 1, b: 2 }, { a: 1, b: 2, c: 3 }])
-        })
-    })
+        it('returns a sole argument', () => {
+            expect(_.where([1,2,3])).to.eql([1,2,3]);
+        });
+        let list = [{ a: 1, b: 2 }, { a: 2, c: 9 }, { a: 1, b: 2, c: 3 }];
+
+        it('returns a new array with the prerequisite key value pairs met', () => {
+            expect(_.where(list, { a: 1, b: 2 })).to.eql([{ a: 1, b: 2 }, { a: 1, b: 2, c: 3 }]);
+        });
+    });
 
     describe('#memoize', function () {
-        let add = null
-        let memoAdd = null
+        let add = null;
+        let memoAdd = null;
 
         beforeEach(function () {
             add = (a, b) => {
@@ -554,8 +606,8 @@ describe('_ lowbar', () => {
         });
 
         it('to be a function', () => {
-            expect(_.memoize).to.be.a('function')
-        })
+            expect(_.memoize).to.be.a('function');
+        });
 
         it('should produce the same result as the non-memoized version', function () {
             expect(add(1, 2)).to.equal(3);
@@ -568,13 +620,13 @@ describe('_ lowbar', () => {
         });
 
         it('should not run the memoized function twice for any given set of arguments', function () {
-            let counter = 0
-            let test = () => {counter++
-            return true }
+            let counter = 0;
+            let test = () => {counter++;
+                return true; };
             let memoTest = _.memoize(test);
-            memoTest()
-            memoTest()
-            expect(counter).to.equal(1)
+            memoTest();
+            memoTest();
+            expect(counter).to.equal(1);
 
         });
     });
@@ -582,44 +634,43 @@ describe('_ lowbar', () => {
     describe('#partial', () => {
 
         it('to be a function', () => {
-            expect(_.partial).to.be.a('function')
-        })
+            expect(_.partial).to.be.a('function');
+        });
 
         it('fills in the partial arguements of a function', () => {
-            let sub = (a, b) => { return a - b }
-            let subfrom4 = _.partial(sub, 4)
-            expect(subfrom4(4)).to.equal(0)
-            let sub4 = _.partial(sub, '_', 4)
-            expect(sub4(20)).to.equal(16)
-        })
+            let sub = (a, b) => { return a - b; };
+            let subfrom4 = _.partial(sub, 4);
+            expect(subfrom4(4)).to.equal(0);
+            let sub4 = _.partial(sub, '_', 4);
+            expect(sub4(20)).to.equal(16);
+        });
         it('fills in the partial arguements of a function ignoring placeholders', () => {
-            let sub = (a, b) => { return a - b }
-            let sub4 = _.partial(sub, '_', 4)
-            expect(sub4(20)).to.equal(16)
-        })
-    })
+            let sub = (a, b) => { return a - b; };
+            let sub4 = _.partial(sub, '_', 4);
+            expect(sub4(20)).to.equal(16);
+        });
+    });
 
 
 
     describe('#delay', () => {
 
         it('to be a function', () => {
-            expect(_.delay).to.be.a('function')
-        })
+            expect(_.delay).to.be.a('function');
+        });
 
         it('delays a function the same as settime out', (done) => {
-            let test = false
+            let test = false;
             _.delay(() => {
-                console.log('called')
-                let test = true
-                expect(test).to.equal(true)
-                done()
-            }, 1000)
-            expect(test).to.equal(false)
-        })
-    })
+                let test = true;
+                expect(test).to.equal(true);
+                done();
+            }, 1000);
+            expect(test).to.equal(false);
+        });
+    });
 
-})
+});
 
 
 
