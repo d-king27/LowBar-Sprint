@@ -7,7 +7,12 @@ module.exports = {
     "parserOptions": {
         "sourceType": "module"
     },
+    "plugins": [
+        "mocha"
+    ],
     "rules": {
+        "mocha/no-exclusive-tests":
+         "error",
         "indent": [
             "error",
             4

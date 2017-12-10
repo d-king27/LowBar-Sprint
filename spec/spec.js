@@ -1,3 +1,4 @@
+/* eslint-env node, mocha */
 var expect = require('chai').expect;
 var _ = require('../index.js');
 
@@ -10,9 +11,6 @@ describe('_ lowbar', () => {
     });
 
     describe('#identity', () => {
-        it('is a function', () => {
-            expect(_.identity).to.be.a('function');
-        });
         it('returns whatever arguement is passed into it ', () => {
             expect(_.identity()).to.eql(undefined);
             expect(_.identity('a')).to.eql('a');
@@ -24,9 +22,7 @@ describe('_ lowbar', () => {
     });
 
     describe('#first', () => {
-        it('is a function', () => {
-            expect(_.first).to.be.a('function');
-        });
+
         it('returns the original arguement if not passed with either an array or string  ', () => {
             expect(_.first(1)).to.eql(1);
             expect(_.first()).to.equal(undefined);
@@ -50,9 +46,7 @@ describe('_ lowbar', () => {
     });
 
     describe('#last', () => {
-        it('is a function', () => {
-            expect(_.last).to.be.a('function');
-        });
+
         it('returns the original arguement if not passed with either an array or string  ', () => {
             expect(_.last(1)).to.eql(1);
             expect(_.last()).to.equal(undefined);
@@ -77,14 +71,11 @@ describe('_ lowbar', () => {
 
 
     describe('#each', () => {
-        it('is a function', () => {
-            expect(_.each).to.be.a('function');
-        });
 
         it('returns a sole argument', () => {
-            let a = [1,2,3];
-            _.each([1,2,3]);
-            expect(a).to.eql([1,2,3]);
+            let a = [1, 2, 3];
+            _.each([1, 2, 3]);
+            expect(a).to.eql([1, 2, 3]);
         });
 
         it(`if passed with an array as the list arguement, 
@@ -121,9 +112,7 @@ describe('_ lowbar', () => {
     });
 
     describe('#indexOf', () => {
-        it('is a function', () => {
-            expect(_.indexOf).to.be.a('function');
-        });
+
         it('it returns -1 if value is not found or undefined', () => {
             expect(_.indexOf()).to.equal(-1);
             expect(_.indexOf([])).to.equal(-1);
@@ -138,9 +127,7 @@ describe('_ lowbar', () => {
     });
 
     describe('#filter', () => {
-        it('it is a function', () => {
-            expect(_.filter).to.be.a('function');
-        });
+
         it('returns an empty array when passed with an empty array', () => {
             expect(_.filter([])).to.eql([]);
             expect(_.filter([], 5)).to.eql([]);
@@ -171,9 +158,7 @@ describe('_ lowbar', () => {
     });
 
     describe('#reject', () => {
-        it('it is a function', () => {
-            expect(_.filter).to.be.a('function');
-        });
+
         it('returns an empty array when passed with an empty array', () => {
             expect(_.filter([])).to.eql([]);
             expect(_.filter([], 5)).to.eql([]);
@@ -205,9 +190,7 @@ describe('_ lowbar', () => {
 
 
     describe('#uniq', function () {
-        it('it is a function', () => {
-            expect(_.uniq).to.be.a('function');
-        });
+
         it('returns the input array if all members are not unique', () => {
             expect(_.uniq([1, 2, 3])).to.eql([1, 2, 3]);
             expect(_.uniq([])).to.eql([]);
@@ -220,9 +203,7 @@ describe('_ lowbar', () => {
 
 
     describe('#map', () => {
-        it('it is a function', () => {
-            expect(_.map).to.be.a('function');
-        });
+
         it('returns an array', () => {
             expect(_.map()).to.eql([]);
 
@@ -248,9 +229,7 @@ describe('_ lowbar', () => {
 
 
     describe('#contains', () => {
-        it('it is a function', () => {
-            expect(_.contains).to.be.a('function');
-        });
+
         it('it returns false if one or less arguments are passed', () => {
             expect(_.contains()).to.equal(false);
             expect(_.contains('anything')).to.equal(false);
@@ -266,9 +245,7 @@ describe('_ lowbar', () => {
 
 
     describe('#pluck', () => {
-        it('it is a function', () => {
-            expect(_.pluck).to.be.a('function');
-        });
+
         it('it returns the first arguement if the first arguement is not an array', () => {
             expect(_.pluck()).to.eql([]);
             expect(_.pluck('anything')).to.eql([]);
@@ -298,9 +275,7 @@ describe('_ lowbar', () => {
         var testWords1 = ['thomas', 'richard', 'henry'];
         var testWords2 = ['richard', 'henry'];
 
-        it('should be a function', function () {
-            expect(_.reduce).to.be.a('function');
-        });
+
         it('should output according to the function input', () => {
             expect(_.reduce(testArray, rrTestFuncSum, 0)).to.be.a('number');
         });
@@ -321,9 +296,7 @@ describe('_ lowbar', () => {
 
 
     describe('#every', () => {
-        it('it is a function', () => {
-            expect(_.every).to.be.a('function');
-        });
+
         it('it returns true if passed with no second arguement', () => {
             expect(_.every()).to.equal(true);
             expect(_.every([1, 2, 3, 4])).to.equal(true);
@@ -342,9 +315,7 @@ describe('_ lowbar', () => {
 
 
     describe('#some', () => {
-        it('it is a function', () => {
-            expect(_.some).to.be.a('function');
-        });
+
         it('it returns true if passed with no second arguement', () => {
             expect(_.some()).to.equal(true);
             expect(_.some([1, 2, 3, 4])).to.equal(true);
@@ -361,9 +332,7 @@ describe('_ lowbar', () => {
         });
     });
     describe('#extend', function () {
-        it('it is a function', function () {
-            expect(_.extend).to.be.a('function');
-        });
+
         it('if no arguments passed returns undefined', function () {
             expect(_.extend()).to.equal(undefined);
         });
@@ -385,9 +354,7 @@ describe('_ lowbar', () => {
 
 
     describe('#defaults', () => {
-        it('it is a function', () => {
-            expect(_.defaults).to.be.a('function');
-        });
+
         it('if no arguments passed returns undefined', () => {
             expect(_.defaults()).to.equal(undefined);
         });
@@ -404,9 +371,7 @@ describe('_ lowbar', () => {
     });
 
     describe('#once', () => {
-        it('is a function', () => {
-            expect(_.once).to.be.a('function');
-        });
+
         it('returns a function', () => {
             expect(_.once()).to.be.a('function');
         });
@@ -425,9 +390,7 @@ describe('_ lowbar', () => {
 
 
     describe('#negate', () => {
-        it('is a function', () => {
-            expect(_.negate).to.be.a('function');
-        });
+
         it('returns a function', () => {
             expect(_.negate()).to.be.a('function');
         });
@@ -442,9 +405,7 @@ describe('_ lowbar', () => {
 
 
     describe('#shuffle', () => {
-        it('is a function', () => {
-            expect(_.shuffle).to.be.a('function');
-        });
+
         it('returns a list of the same length', () => {
             expect(_.shuffle([1, 2, 3]).length).to.eql([1, 2, 3].length);
         });
@@ -481,16 +442,13 @@ describe('_ lowbar', () => {
 
     describe('#zip', () => {
 
-        it('to be a function', () => {
-            expect(_.zip).to.be.a('function');
-        });
 
         it('returns empty array if passed with no arguments', () => {
             expect(_.zip()).to.eql([]);
         });
 
         it('returns a sole argument', () => {
-            expect(_.zip([1,2,3])).to.eql([1,2,3]);
+            expect(_.zip([1, 2, 3])).to.eql([1, 2, 3]);
         });
 
         it('transfers each arguemnent to the coresponding index to a new array of arrays', () => {
@@ -501,16 +459,14 @@ describe('_ lowbar', () => {
 
     describe('#flatten', () => {
 
-        it('to be a function', () => {
-            expect(_.flatten).to.be.a('function');
-        });
+
 
         it('returns empty array if passed with no arguments', () => {
             expect(_.flatten()).to.eql([]);
         });
 
         it('returns a sole argument', () => {
-            expect(_.flatten([1,2,3])).to.eql([1,2,3]);
+            expect(_.flatten([1, 2, 3])).to.eql([1, 2, 3]);
         });
 
         it('flattens an array', () => {
@@ -520,10 +476,7 @@ describe('_ lowbar', () => {
 
     describe('#sortBy', () => {
 
-        it('to be a function', () => {
-            expect(_.sortBy).to.be.a('function');
-        });
-        
+
         it('returns a sorted array by criteria', () => {
             expect(_.sortBy([1, 2, 3, 4, 5, 6], (num) => { return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2]);
             expect(_.sortBy([40, 50, 60], (a) => { return -a; })).to.eql([60, 50, 40]);
@@ -534,23 +487,20 @@ describe('_ lowbar', () => {
             let final = [{ name: 'curly', age: 60 }, { name: 'larry', age: 50 }, { name: 'moe', age: 40 }];
             expect(_.sortBy(initial, (a) => { return -a; }, 'age')).to.eql(final);
         });
-        //*************************************************************************************//
     });
 
     describe('#intersection', () => {
 
-        it('to be a function', () => {
-            expect(_.intersection).to.be.a('function');
-        });
+
         it('returns empty array if passed with no arguments', () => {
             expect(_.intersection()).to.eql([]);
         });
 
         it('returns a sole argument', () => {
-            expect(_.intersection([1,2,3])).to.eql([1,2,3]);
+            expect(_.intersection([1, 2, 3])).to.eql([1, 2, 3]);
         });
 
-        it('produces an array of all common values within the given arguements of arrays', () => {
+        it('produces an array of all common values within the given arguments of arrays', () => {
             expect(_.intersection([1, 2, 3], [3, 4, 5])).to.eql([3]);
             expect(_.intersection(['hello', 'goodbye'], ['hello', 'farewell'])).to.eql(['hello']);
         });
@@ -558,33 +508,28 @@ describe('_ lowbar', () => {
 
     describe('#difference', () => {
 
-        it('to be a function', () => {
-            expect(_.difference).to.be.a('function');
-        });
         it('returns empty array if passed with no arguments', () => {
             expect(_.difference()).to.eql([]);
         });
 
         it('returns a sole argument', () => {
-            expect(_.difference([1,2,3])).to.eql([1,2,3]);
-        });        
+            expect(_.difference([1, 2, 3])).to.eql([1, 2, 3]);
+        });
 
-        it('produces an array of all common values within the given arguements of arrays', () => {
+        it('produces an array of all common values within the given arguments of arrays', () => {
             expect(_.difference(['hello', 'goodbye'], ['hello', 'farewell'])).to.eql(['goodbye']);
         });
     });
 
     describe('#where', () => {
 
-        it('to be a function', () => {
-            expect(_.where).to.be.a('function');
-        });
+
         it('returns empty array if passed with no arguments', () => {
             expect(_.where()).to.eql([]);
         });
 
         it('returns a sole argument', () => {
-            expect(_.where([1,2,3])).to.eql([1,2,3]);
+            expect(_.where([1, 2, 3])).to.eql([1, 2, 3]);
         });
         let list = [{ a: 1, b: 2 }, { a: 2, c: 9 }, { a: 1, b: 2, c: 3 }];
 
@@ -605,9 +550,7 @@ describe('_ lowbar', () => {
             memoAdd = _.memoize(add);
         });
 
-        it('to be a function', () => {
-            expect(_.memoize).to.be.a('function');
-        });
+
 
         it('should produce the same result as the non-memoized version', function () {
             expect(add(1, 2)).to.equal(3);
@@ -621,8 +564,10 @@ describe('_ lowbar', () => {
 
         it('should not run the memoized function twice for any given set of arguments', function () {
             let counter = 0;
-            let test = () => {counter++;
-                return true; };
+            let test = () => {
+                counter++;
+                return true;
+            };
             let memoTest = _.memoize(test);
             memoTest();
             memoTest();
@@ -633,18 +578,15 @@ describe('_ lowbar', () => {
 
     describe('#partial', () => {
 
-        it('to be a function', () => {
-            expect(_.partial).to.be.a('function');
-        });
 
-        it('fills in the partial arguements of a function', () => {
+        it('fills in the partial argument of a function', () => {
             let sub = (a, b) => { return a - b; };
             let subfrom4 = _.partial(sub, 4);
             expect(subfrom4(4)).to.equal(0);
             let sub4 = _.partial(sub, '_', 4);
             expect(sub4(20)).to.equal(16);
         });
-        it('fills in the partial arguements of a function ignoring placeholders', () => {
+        it('fills in the partial argument of a function ignoring placeholders', () => {
             let sub = (a, b) => { return a - b; };
             let sub4 = _.partial(sub, '_', 4);
             expect(sub4(20)).to.equal(16);
@@ -655,10 +597,6 @@ describe('_ lowbar', () => {
 
     describe('#delay', () => {
 
-        it('to be a function', () => {
-            expect(_.delay).to.be.a('function');
-        });
-
         it('delays a function the same as settime out', (done) => {
             let test = false;
             _.delay(() => {
@@ -666,6 +604,31 @@ describe('_ lowbar', () => {
                 expect(test).to.equal(true);
                 done();
             }, 1000);
+            expect(test).to.equal(false);
+        });
+    });
+
+    describe('#values', () => {
+        it('returns the values of the given list', () => {
+            expect(_.values({a:1,b:2,c:3})).to.eql([1,2,3]);
+            expect(_.values({e:1,f:2,g:3})).to.eql([1,2,3]);
+            expect(_.values([1,2,3])).to.eql([1,2,3]);
+            expect(_.values('string')).to.eql([]);
+        });
+    });
+
+    describe('#throttle', () => {
+        
+        it('creates a throttled function', (done) => {
+            let test = false;
+            let called = 0
+           let throttled =  _.throttle(() => {
+                let test = true;
+                called++
+                expect(test).to.equal(true);
+                done();
+            }, 1000);
+            throttled()
             expect(test).to.equal(false);
         });
     });
