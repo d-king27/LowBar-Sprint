@@ -20,7 +20,7 @@ _.last = function (input, n = 1) {
     return input;
 
 };
-_.each = function (list, fn =_.identity) {
+_.each = function (list, fn = _.identity) {
     if (typeof list === 'string') { return _.each(list.split(''), fn); }
     if (typeof list !== 'object') { return list; }
     if (list === null) { return null; }
@@ -37,18 +37,6 @@ _.each = function (list, fn =_.identity) {
     }
 };
 
-_.indexOf = function (arr, val) {
-    let final = -1;
-    if (!Array.isArray(arr)) return final;
-    if (arr[0] === undefined) return final;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === val) {
-            final = i;
-            return final;
-        }
-    }
-    return final;
-};
 
 _.filter = function (list, pred) {
     let final = [];
@@ -100,10 +88,10 @@ _.map = function (list, func) {
 
 };
 
-_.contains = function (list, val) {
+_.contains = function (list, val, index = 0) {
     if (list === undefined) { return false; }
     let arr = Object.values(list);
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = index; i < arr.length; i++) {
         if (arr[i] === val) return true;
     }
 
@@ -121,7 +109,7 @@ _.pluck = function (list, val) {
 };
 
 
-_.reduce = function (list, iteratee=_.identity, initial) {
+_.reduce = function (list, iteratee = _.identity, initial) {
     if (initial === undefined) {
         initial = list[0];
         list = list.slice(1);
@@ -236,8 +224,8 @@ _.invokes = function (obj, methodname) {
 _.zip = function (x) {
     let capture = {};
     let list = Object.values(arguments);
-    if(list.length === 0){return [];}
-    if(list.length === 1){return x;}
+    if (list.length === 0) { return []; }
+    if (list.length === 1) { return x; }
     _.each(list, (item) => {
         _.each(item, (element, i) => {
             if (!capture[i]) { capture[i] = []; }
@@ -269,7 +257,7 @@ _.sortedIndex = function (array, obj, fn) {
 };
 
 _.flatten = function (list, bool) {
-    if(!list){return [];}
+    if (!list) { return []; }
     let final = [];
     function flatten(array, pred) {
         array.forEach(function (item) {
@@ -292,7 +280,7 @@ _.flatten = function (list, bool) {
 
 };
 
-_.sortBy = function (list, fn=_.identity, con) {
+_.sortBy = function (list, fn = _.identity, con) {
     let data = null;
     if (con) {
         data = _.map(list, (item, i, fullList) => {
@@ -372,21 +360,21 @@ _.difference = function () {
 
 };
 
-_.delay = function (fn=_.identity, time) {
+_.delay = function (fn = _.identity, time) {
     var args = Object.values(arguments).slice(1);
     return setTimeout(() => {
         return fn.apply(null, args);
     }, Number(time));
 };
 
-_.where = function (list, obj={}) {
-    if(!list){return [];}
+_.where = function (list, obj = {}) {
+    if (!list) { return []; }
     let keys = Object.keys(obj);
 
     return _.filter(list, (item) => {
         let bool = true;
         _.each(keys, (key) => {
-            if(item[key] === obj[key]){}
+            if (item[key] === obj[key]) { }
             else bool = false;
 
         });
@@ -396,10 +384,10 @@ _.where = function (list, obj={}) {
 
 };
 
-_.memoize = function(func=_.identity) {
+_.memoize = function (func = _.identity) {
     var cache = {};
 
-    return function() {
+    return function () {
         var arg = JSON.stringify(arguments);
         if (!cache[arg]) {
             cache[arg] = func.apply(this, arguments);
@@ -410,24 +398,74 @@ _.memoize = function(func=_.identity) {
 };
 
 
-_.partial = function (fn=_.identity) {
+_.partial = function (fn = _.identity) {
     let args = Object.values(arguments).slice(1);
-    return function(){
+    return function () {
         let inputArgs = Object.values(arguments);
         let counter = 0;
-        let newArgs = _.map(args,(item)=>{
-            if(item === '_'){
+        let newArgs = _.map(args, (item) => {
+            if (item === '_') {
                 let count = counter;
                 counter++;
-                return inputArgs[count];}
+                return inputArgs[count];
+            }
             else return item;
 
         });
         newArgs = newArgs.concat(inputArgs.slice(counter));
-        return fn.apply(this,newArgs);
+        return fn.apply(this, newArgs);
     };
 };
 
+_.values = function (list) {
+    if (typeof list === 'string') { return [] }
+    return Object.values(list)
+}
+
+_.sortedIndex = function (array, val, fn = _.identity, context) {
+    if (context) {
+        array = _.pluck9(array, context)
+    }
+    let value = fn(val);
+    let low = 0
+    let high = array.length;
+    while (low < high) {
+        let mid = Math.floor((low + high) / 2);
+        if (iteratee(array[mid]) < value) low = mid + 1; else high = mid;
+    }
+    return low;
+};
+
+_.indexOf = function (arr, val) {
+    let final = -1;
+    if (!Array.isArray(arr)) return final;
+    if (arr[0] === undefined) return final;
+    if(arr[0]===val){return 0}
+    let low = 0
+    let high = arr.length;
+    while (low < high) {
+        let mid = Math.floor((low + high) / 2);
+        if (arr[mid] === val) { return mid }
+        if (arr[mid] > val) low = mid + 1;
+        else high = mid;
+    }
+    return final;
+};
+
+
+_.throttle = function (func, delay) {
+    var timer = 0;
+
+    return function () {
+        let context = this
+        let args = Object.values(arguments).slice(0);
+
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            func.apply(context, args);
+        }, delay);
+    };
+}
 
 
 
