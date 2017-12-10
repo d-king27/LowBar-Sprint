@@ -1,6 +1,6 @@
 # Lowbar
 
- Re-implementation of the Underscore.js Library http://underscorejs.org/
+     Re-implementation of the Underscore.js Library http://underscorejs.org/
 As part of the Northcoders bootcamp we were tasked in re-implementing the underscore.js libary from scratch.It involved rewriting 31 functions in total. One particular skill related to this project is functional programming, which is a declarative programming paradigm where the output of any function depends only upon the arguments that are passed into the function.
 
 
