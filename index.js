@@ -423,15 +423,16 @@ _.values = function (list) {
 }
 
 _.sortedIndex = function (array, val, fn = _.identity, context) {
+    if(!val){return 0}
     if (context) {
-        array = _.pluck9(array, context)
+        array = _.pluck(array, context)
     }
     let value = fn(val);
     let low = 0
     let high = array.length;
     while (low < high) {
         let mid = Math.floor((low + high) / 2);
-        if (iteratee(array[mid]) < value) low = mid + 1; else high = mid;
+        if (fn(array[mid]) < value) low = mid + 1; else high = mid;
     }
     return low;
 };

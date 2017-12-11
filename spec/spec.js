@@ -610,19 +610,29 @@ describe('_ lowbar', () => {
 
     describe('#values', () => {
         it('returns the values of the given list', () => {
-            expect(_.values({a:1,b:2,c:3})).to.eql([1,2,3]);
-            expect(_.values({e:1,f:2,g:3})).to.eql([1,2,3]);
-            expect(_.values([1,2,3])).to.eql([1,2,3]);
+            expect(_.values({ a: 1, b: 2, c: 3 })).to.eql([1, 2, 3]);
+            expect(_.values({ e: 1, f: 2, g: 3 })).to.eql([1, 2, 3]);
+            expect(_.values([1, 2, 3])).to.eql([1, 2, 3]);
             expect(_.values('string')).to.eql([]);
         });
     });
 
+    describe('#sortedIndex', () => {
+        it('returns the correct position for the value given', () => {
+            expect(_.sortedIndex()).to.eql(0);
+            expect(_.sortedIndex([10, 20, 30, 40, 50], 35)).to.eql(3);
+            expect(_.sortedIndex([10, 20, 30, 40, 50])).to.eql(0);
+            expect(_.sortedIndex([10, 20, 30, 40, 50],50,(a)=>a*2)).to.eql(4);
+
+        });
+    });
+
     describe('#throttle', () => {
-        
+
         it('creates a throttled function', (done) => {
             let test = false;
             let called = 0
-           let throttled =  _.throttle(() => {
+            let throttled = _.throttle(() => {
                 let test = true;
                 called++
                 expect(test).to.equal(true);
