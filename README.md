@@ -6,7 +6,7 @@ As part of the Northcoders bootcamp we were tasked in re-implementing the unders
 
 ### Prerequisites
 
-This project requires Node.js and npm to run, installation instructions can be found here:
+This project requires Node.js (minmum version v8.3.0) and npm to run, installation instructions can be found here:
 
 ```
 https://nodejs.org/en/download/package-manager/

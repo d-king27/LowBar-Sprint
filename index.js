@@ -20,48 +20,42 @@ _.last = function (input, n = 1) {
     return input;
 
 };
-_.each = function (list, fn = _.identity) {
-    if (typeof list === 'string') { return _.each(list.split(''), fn); }
-    if (typeof list !== 'object') { return list; }
-    if (list === null) { return null; }
-    if (Array.isArray(list)) {
-        for (let i = 0; i < list.length; i++) {
-            fn(list[i], i, list);
-        }
+
+_.each = function (list, fn = _.identity,context=null) {
+    if(!list){return undefined}
+    list = Object.values(list)
+    let length = list.length
+    for(let i = 0;i<length;i++){
+        fn.call(context,list[i],i,list)
     }
-    else {
-        var values = Object.values(list);
-        for (let j = 0; j < values.length; j++) {
-            fn(values[j], j, values);
-        }
-    }
+
 };
 
 
-_.filter = function (list, pred) {
+_.filter = function (list, pred= _.identity,context=null) {
     let final = [];
-    let genPushFunc = (fn) => {
-        return (a) => {
-            if (fn(a) === true) {
+    let genPushFunc = (fn,con) => {
+        return (a,b,c) => {
+            if (fn.call(con,a,b,c) === true) {
                 final.push(a);
             }
         };
     };
-    _.each(list, genPushFunc(pred));
+    _.each(list, genPushFunc(pred,context));
     return final;
 
 };
 
-_.reject = function (list, pred) {
+_.reject = function (list, pred= _.identity,context=null) {
     let final = [];
-    let genPushFunc = (fn) => {
-        return (a) => {
-            if (fn(a) === false) {
+    let genPushFunc = (fn,con) => {
+        return (a,b,c) => {
+            if (fn.call(con,a,b,c) === false) {
                 final.push(a);
             }
         };
     };
-    _.each(list, genPushFunc(pred));
+    _.each(list, genPushFunc(pred,context));
     return final;
 
 };
@@ -75,14 +69,14 @@ _.uniq = function (list) {
 
 };
 
-_.map = function (list, func) {
+_.map = function (list, func= _.identity,context) {
     let arr = [];
-    function pusher(fn) {
-        return (y) => {
-            arr.push(fn(y));
+    function pusher(fn,con) {
+        return (x,y,z) => {
+            arr.push(fn.call(con,x,y,z));
         };
     }
-    _.each(list, pusher(func));
+    _.each(list, pusher(func,context));
 
     return arr;
 
@@ -98,49 +92,49 @@ _.contains = function (list, val, index = 0) {
     return false;
 };
 
-_.pluck = function (list, val) {
+_.pluck = function (list, val,context) {
     if (typeof list !== 'object') { return []; }
     if (list === null) { return []; }
     let arr = Object.values(list);
     let final = _.map(arr, (item) => {
         return item[val];
-    });
+    },context);
     return final;
 };
 
 
-_.reduce = function (list, iteratee = _.identity, initial) {
+_.reduce = function (list, iteratee = _.identity, initial,context=null) {
+    let arr = Object.values(list);
     if (initial === undefined) {
-        initial = list[0];
-        list = list.slice(1);
+        initial = arr[0];
+        arr = arr.slice(1);
     }
     let acc = initial;
-    let arr = Object.values(list);
     for (let i = 0; i < arr.length; i++) {
-        acc = iteratee(acc, arr[i], i, arr);
+        acc = iteratee.call(context,acc, arr[i], i, arr);
     }
     return acc;
 };
 
-_.every = function (list, fn) {
+_.every = function (list, fn,context=null) {
     if (fn === undefined) return true;
     if (typeof list !== 'object') { return true; }
     list = Object.values(list);
     let test = true;
     for (let i = 0; i < list.length; i++) {
-        if (test) test = fn(list[i]);
+        if (test) test = fn.call(context,list[i]);
     }
     return test;
 };
 
-_.some = function (list, fn) {
+_.some = function (list, fn,context=null) {
     if (fn === undefined) return true;
     if (typeof list !== 'object') { return true; }
     list = Object.values(list);
     let test = false;
     for (let i = 0; i < list.length; i++) {
         if (!test) {
-            test = fn(list[i]);
+            test = fn.call(context,list[i]);
         }
     }
     return test;
